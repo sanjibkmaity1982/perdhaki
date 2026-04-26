@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SahAIbat × PERDHAKI</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-deep: #0d3b3a;
+    --teal-mid: #195e5b;
+    --teal-bright: #2a8d88;
+    --cream: #f5efe2;
+    --cream-warm: #ebe2cf;
+    --terracotta: #c8593d;
+    --gold: #d4a347;
+    --ink: #0a1f1e;
+    --rule: rgba(13, 59, 58, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(13,59,58,0.06) 1px, transparent 0);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    padding: 4vh 6vw;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(30px);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0s 0.6s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slide.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                visibility 0s 0s;
+  }
+
+  /* === HEADER LABEL === */
+  .label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .label::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--teal-mid);
+  }
+
+  /* === COVER SLIDE === */
+  .cover {
+    background:
+      radial-gradient(ellipse at top right, rgba(42,141,136,0.12), transparent 60%),
+      var(--cream);
+  }
+
+  .cover-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    height: 100%;
+  }
+
+  .cover h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--teal-deep);
+    margin-bottom: 1.5rem;
+  }
+
+  .cover h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--terracotta);
+  }
+
+  .cover .subtitle-id {
+    font-family: 'Fraunces', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--teal-mid);
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+
+  .cover .subtitle-en {
+    font-size: 1rem;
+    color: rgba(13,59,58,0.6);
+    font-style: italic;
+    margin-bottom: 3rem;
+  }
+
+  .cover .partners {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: auto;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  .partner-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--teal-deep);
+  }
+
+  .partner-x {
+    color: var(--terracotta);
+    font-style: italic;
+    font-size: 1.5rem;
+  }
+
+  .cover-art {
+    position: relative;
+    height: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .phone-frame {
+    width: 280px;
+    height: 560px;
+    background: var(--teal-deep);
+    border-radius: 36px;
+    padding: 14px;
+    box-shadow: 0 30px 60px -20px rgba(13,59,58,0.4);
+    transform: rotate(-3deg);
+    position: relative;
+  }
+
+  .phone-screen {
+    background: #e5ddd5;
+    width: 100%;
+    height: 100%;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wa-header {
+    background: #075e54;
+    color: white;
+    padding: 0.7rem 0.8rem 0.5rem;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .wa-avatar {
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    color: var(--teal-deep);
+    font-size: 0.85rem;
+  }
+
+  .wa-body {
+    flex: 1;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: hidden;
+  }
+
+  .bubble {
+    max-width: 85%;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    font-size: 0.62rem;
+    line-height: 1.35;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    opacity: 0;
+    animation: bubbleIn 0.5s forwards;
+  }
+
+  .bubble.in { background: white; }
+  .bubble.out { background: #dcf8c6; align-self: flex-end; }
+  .bubble.b1 { animation-delay: 0.4s; }
+  .bubble.b2 { animation-delay: 0.9s; }
+  .bubble.b3 { animation-delay: 1.4s; }
+  .bubble.b4 { animation-delay: 1.9s; }
+
+  @keyframes bubbleIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .bubble strong { color: var(--teal-deep); }
+
+  /* === STANDARD SLIDE === */
+  .slide-num {
+    position: absolute;
+    top: 4vh;
+    right: 6vw;
+    font-family: 'Fraunces', serif;
+    font-size: 0.9rem;
+    color: rgba(13,59,58,0.4);
+    font-style: italic;
+  }
+
+  .slide-num span { color: var(--terracotta); font-weight: 600; }
+
+  .slide h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.2rem, 4vw, 3.6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+    color: var(--teal-deep);
+    margin-bottom: 0.4rem;
+  }
+
+  .slide h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .slide .h2-en {
+    font-size: 1rem;
+    color: rgba(13,59,58,0.5);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+    font-family: 'Fraunces', serif;
+  }
+
+  /* === PROBLEM SLIDE === */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+
+  .stat-card {
+    background: white;
+    padding: 2rem 1.8rem;
+    border-radius: 4px;
+    border-left: 3px solid var(--terracotta);
+    position: relative;
+  }
+
+  .stat-card:nth-child(2) { border-left-color: var(--gold); }
+  .stat-card:nth-child(3) { border-left-color: var(--teal-bright); }
+
+  .stat-number {
+    font-family: 'Fraunces', serif;
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--teal-deep);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label-id {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--teal-deep);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+
+  .stat-label-en {
+    font-size: 0.78rem;
+    color: rgba(13,59,58,0.5);
+    font-style: italic;
+    line-height: 1.3;
+  }
+
+  /* === SOLUTION SLIDE === */
+  .solution-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .solution-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    background: white;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 2.4rem;
+    bottom: -1.2rem;
+    width: 1px;
+    height: 1.2rem;
+    background: var(--rule);
+  }
+
+  .flow-step:last-child::before { display: none; }
+
+  .flow-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  .flow-step:nth-child(2) .flow-num { background: var(--teal-mid); }
+  .flow-step:nth-child(3) .flow-num { background: var(--teal-bright); }
+  .flow-step:nth-child(4) .flow-num { background: var(--terracotta); }
+
+  .flow-content-id {
+    font-weight: 500;
+    color: var(--teal-deep);
+    margin-bottom: 0.2rem;
+    font-size: 0.95rem;
+  }
+
+  .flow-content-en {
+    font-size: 0.78rem;
+    color: rgba(13,59,58,0.55);
+    font-style: italic;
+  }
+
+  .solution-visual {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* === MODULES SLIDE === */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .module-card {
+    background: white;
+    padding: 1.8rem;
+    border-radius: 4px;
+    border-top: 4px solid var(--teal-bright);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .module-card.featured {
+    border-top-color: var(--terracotta);
+    background: linear-gradient(180deg, #fff8f0 0%, white 100%);
+  }
+
+  .module-card.featured::after {
+    content: 'PRIORITAS';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--terracotta);
+    background: rgba(200,89,61,0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .module-card.future {
+    border-top-color: var(--gold);
+    background: rgba(212,163,71,0.04);
+  }
+
+  .module-card.future::after {
+    content: 'OPSIONAL';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    background: rgba(212,163,71,0.15);
+    padding: 0.2rem 0.5rem;
+    border-radius: 2px;
+  }
+
+  .module-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(13,59,58,0.2);
+  }
+
+  .module-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 1.2rem;
+  }
+
+  .module-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--teal-deep);
+    margin-bottom: 0.2rem;
+  }
+
+  .module-card .h3-en {
+    font-size: 0.78rem;
+    color: rgba(13,59,58,0.5);
+    font-style: italic;
+    margin-bottom: 1rem;
+  }
+
+  .module-card ul {
+    list-style: none;
+    margin-top: 0.8rem;
+  }
+
+  .module-card li {
+    font-size: 0.85rem;
+    color: rgba(13,59,58,0.75);
+    padding: 0.3rem 0 0.3rem 1.2rem;
+    position: relative;
+    line-height: 1.4;
+  }
+
+  .module-card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7rem;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--terracotta);
+  }
+
+  /* === HOW IT WORKS === */
+  .how-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .how-step {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .how-step-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: var(--teal-deep);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--cream);
+  }
+
+  .how-step h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    color: var(--teal-deep);
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+
+  .how-step .h3-en {
+    font-size: 0.72rem;
+    color: rgba(13,59,58,0.5);
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+
+  .how-step p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: rgba(13,59,58,0.75);
+    margin-bottom: 0.4rem;
+  }
+
+  .how-step .p-en {
+    font-size: 0.72rem;
+    color: rgba(13,59,58,0.45);
+    font-style: italic;
+  }
+
+  /* === WHY US === */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .why-card {
+    background: white;
+    padding: 1.8rem 2rem;
+    border-radius: 4px;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+
+  .why-bullet {
+    font-family: 'Fraunces', serif;
+    font-size: 2.2rem;
+    color: var(--terracotta);
+    font-weight: 300;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .why-card h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: var(--teal-deep);
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+  }
+
+  .why-card .h3-en {
+    font-size: 0.74rem;
+    color: rgba(13,59,58,0.5);
+    font-style: italic;
+    margin-bottom: 0.8rem;
+  }
+
+  .why-card p {
+    font-size: 0.9rem;
+    color: rgba(13,59,58,0.7);
+    line-height: 1.5;
+  }
+
+  .why-card p .p-en {
+    display: block;
+    font-size: 0.78rem;
+    color: rgba(13,59,58,0.45);
+    font-style: italic;
+    margin-top: 0.3rem;
+  }
+
+  /* === CLOSING === */
+  .closing {
+    background:
+      radial-gradient(ellipse at bottom left, rgba(200,89,61,0.08), transparent 60%),
+      var(--cream);
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .closing-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .closing h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--teal-deep);
+    margin-bottom: 1rem;
+  }
+
+  .closing h2 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .closing-en {
+    font-family: 'Fraunces', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: rgba(13,59,58,0.55);
+    margin-bottom: 3rem;
+  }
+
+  .closing-tagline {
+    font-size: 1rem;
+    color: var(--teal-mid);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+    margin-top: 2rem;
+  }
+
+  .closing-mark {
+    margin-top: 4rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--teal-deep);
+  }
+
+  .closing-mark .x { color: var(--terracotta); margin: 0 0.6rem; }
+
+  /* === NAVIGATION === */
+  .nav {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: rgba(13,59,58,0.92);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1rem;
+    border-radius: 100px;
+    z-index: 100;
+    box-shadow: 0 10px 30px -5px rgba(13,59,58,0.3);
+  }
+
+  .nav-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(245,239,226,0.1);
+    color: var(--cream);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+    font-size: 1rem;
+  }
+
+  .nav-btn:hover { background: rgba(245,239,226,0.25); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  .nav-dots {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0 0.8rem;
+  }
+
+  .nav-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(245,239,226,0.25);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .nav-dot.active {
+    background: var(--cream);
+    width: 22px;
+    border-radius: 4px;
+  }
+
+  .nav-counter {
+    font-family: 'Fraunces', serif;
+    color: var(--cream);
+    font-size: 0.8rem;
+    font-style: italic;
+    padding: 0 0.5rem;
+  }
+
+  /* === DECORATIVE === */
+  .corner-mark {
+    position: absolute;
+    top: 4vh;
+    left: 6vw;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: rgba(13,59,58,0.35);
+  }
+
+  .corner-mark .x {
+    color: var(--terracotta);
+    margin: 0 0.4rem;
+  }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 900px) {
+    .cover-grid, .solution-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .problem-grid, .modules-grid, .how-grid { grid-template-columns: 1fr; }
+    .why-grid { grid-template-columns: 1fr; }
+    .cover-art { display: none; }
+    .slide { padding: 3vh 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: COVER -->
+  <section class="slide active cover" data-slide="0">
+    <div class="cover-grid">
+      <div>
+        <div class="label">Perkenalan Produk · Product Introduction</div>
+        <h1>Sah<em>AI</em>bat</h1>
+        <div class="subtitle-id">Asisten AI untuk Kader Posyandu</div>
+        <div class="subtitle-en">An AI assistant for community health workers</div>
+        <div class="partners">
+          <span class="partner-mark">SahAIbat</span>
+          <span class="partner-x">×</span>
+          <span class="partner-mark">PERDHAKI</span>
+        </div>
+      </div>
+      <div class="cover-art">
+        <div class="phone-frame">
+          <div class="phone-screen">
+            <div class="wa-header">
+              <div class="wa-avatar">S</div>
+              <div>
+                <div style="font-weight:600;">SahAIbat</div>
+                <div style="font-size:0.55rem;opacity:0.8;">online</div>
+              </div>
+            </div>
+            <div class="wa-body">
+              <div class="bubble in b1"><strong>Selamat pagi Kader!</strong><br>Mau periksa apa hari ini?</div>
+              <div class="bubble out b2">Ibu hamil, 28 tahun, G2P1</div>
+              <div class="bubble in b3"><strong>Tekanan darah ibu?</strong><br>Mohon diukur dulu ya 🩺</div>
+              <div class="bubble out b4">160/100</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 2: WHAT IS IT -->
+  <section class="slide" data-slide="1">
+    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    <div class="slide-num"><span>02</span> / 06</div>
+    <div class="label">Apa itu SahAIbat · What is SahAIbat</div>
+    <h2>Sahabat <em>cerdas</em> untuk setiap Kader Posyandu</h2>
+    <div class="h2-en">A smart companion for every community health worker</div>
+
+    <div style="max-width: 900px; font-size: 1.15rem; line-height: 1.6; color: rgba(13,59,58,0.8); margin-bottom: 2rem;">
+      <p style="margin-bottom: 0.6rem;">SahAIbat adalah <strong style="color: var(--teal-deep);">platform AI berbasis WhatsApp</strong> yang membantu Kader Posyandu melakukan triage klinis di lapangan—tanpa aplikasi tambahan, tanpa pelatihan rumit, langsung dalam Bahasa Indonesia.</div>
+      <p style="font-style: italic; font-size: 0.95rem; color: rgba(13,59,58,0.5);">SahAIbat is a WhatsApp-based AI platform that helps Posyandu Kaders perform clinical triage in the field—no extra app, no complex training, directly in Bahasa Indonesia.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
+      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--teal-bright);">
+        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">1</div>
+        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Lewat WhatsApp</div>
+        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Via WhatsApp</div>
+        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">Kader pakai HP yang sudah ada. Tidak perlu unduh apa-apa.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">Kaders use phones they already have.</span></p>
+      </div>
+
+      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--terracotta);">
+        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">2</div>
+        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Bekerja Offline</div>
+        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Works offline (PWA)</div>
+        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">PWA dengan sinkronisasi otomatis saat sinyal tersedia.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">PWA with auto-sync when signal returns.</span></p>
+      </div>
+
+      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--gold);">
+        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">3</div>
+        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Sesuai Pedoman</div>
+        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Aligned with national protocols</div>
+        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">Mengikuti Buku KIA, Permenkes, standar WHO.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">Follows Buku KIA, Permenkes, WHO standards.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 3: MODULES -->
+  <section class="slide" data-slide="2">
+    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    <div class="slide-num"><span>03</span> / 06</div>
+    <div class="label">Modul yang Tersedia · Available Modules</div>
+    <h2>Yang sudah <em>siap</em> untuk PERDHAKI</h2>
+    <div class="h2-en">What is ready for PERDHAKI today</div>
+
+    <div class="modules-grid">
+      <div class="module-card featured">
+        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="14" r="6" stroke="#0d3b3a" stroke-width="2"/>
+          <path d="M14 38C14 32 18 28 24 28C30 28 34 32 34 38" stroke="#0d3b3a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="34" cy="22" r="3" fill="#c8593d"/>
+        </svg>
+        <h3>Ibu Hamil</h3>
+        <div class="h3-en">Maternal Care</div>
+        <ul>
+          <li>Pemeriksaan ANC dan tekanan darah</li>
+          <li>Deteksi tanda bahaya kehamilan</li>
+          <li>Risiko preeklampsia, pendarahan</li>
+          <li>Rujukan otomatis ke Puskesmas/RS</li>
+        </ul>
+      </div>
+
+      <div class="module-card featured">
+        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
+          <path d="M24 8C18 8 14 14 14 22C14 28 18 34 24 34C30 34 34 28 34 22C34 14 30 8 24 8Z" stroke="#0d3b3a" stroke-width="2"/>
+          <circle cx="20" cy="20" r="1.5" fill="#0d3b3a"/>
+          <circle cx="28" cy="20" r="1.5" fill="#0d3b3a"/>
+          <path d="M20 26C21 27 22.5 27.5 24 27.5C25.5 27.5 27 27 28 26" stroke="#c8593d" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M14 38L34 38" stroke="#0d3b3a" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <h3>Bayi Baru Lahir</h3>
+        <div class="h3-en">Neonatal Care</div>
+        <ul>
+          <li>Skrining tanda bahaya neonatus</li>
+          <li>Asfiksia, ikterus, hipotermia</li>
+          <li>Pemantauan masa nifas (Ibu)</li>
+          <li>Rujukan dini ke fasilitas terdekat</li>
+        </ul>
+      </div>
+
+      <div class="module-card future">
+        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
+          <rect x="14" y="16" width="20" height="22" rx="2" stroke="#0d3b3a" stroke-width="2"/>
+          <path d="M19 16V12C19 10 20 8 22 8H26C28 8 29 10 29 12V16" stroke="#0d3b3a" stroke-width="2"/>
+          <path d="M24 22V32M19 27H29" stroke="#d4a347" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <h3>Imunisasi</h3>
+        <div class="h3-en">Immunisation Tracking</div>
+        <ul>
+          <li>Identifikasi anak <em>zero-dose</em></li>
+          <li>Pelacakan jadwal imunisasi</li>
+          <li>Integrasi dengan program Gavi</li>
+          <li>Pengembangan modul Phase 2</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(42,141,136,0.08); border-radius: 4px; font-size: 0.85rem; color: rgba(13,59,58,0.7);">
+      <strong style="color: var(--teal-deep);">Catatan:</strong> Modul Ibu Hamil dan Bayi Baru Lahir <strong>sudah dibangun dan siap</strong> deploy. Modul Imunisasi akan dikembangkan dalam fase kedua, terintegrasi dengan kerjasama PERDHAKI–Kemenkes–Gavi.
+      <br><em style="color: rgba(13,59,58,0.5); font-size: 0.78rem; margin-top: 0.3rem; display: block;">Maternal and Neonatal modules are already built and ready. Immunisation module will be developed in Phase 2, integrated with PERDHAKI's existing Gavi-MoH partnership.</em>
+    </div>
+  </section>
+
+  <!-- SLIDE 4: HOW IT WORKS -->
+  <section class="slide" data-slide="3">
+    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    <div class="slide-num"><span>04</span> / 06</div>
+    <div class="label">Cara Kerja · How It Works</div>
+    <h2>Dari Kader ke Rumah Sakit—<em>satu rantai</em></h2>
+    <div class="h2-en">From Kader to hospital—one continuous chain</div>
+
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-step-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2C9 2 7 4 7 7C7 10 9 12 12 12C15 12 17 10 17 7C17 4 15 2 12 2Z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M5 22C5 17 8 14 12 14C16 14 19 17 19 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Kader</h3>
+        <div class="h3-en">Community Health Worker</div>
+        <p>Kader Posyandu melakukan kunjungan rutin atau insidental.</p>
+        <p class="p-en">Kader conducts routine or ad-hoc visits.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-icon-wrap" style="background: var(--teal-mid);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M3 5C3 4 4 3 5 3H19C20 3 21 4 21 5V15C21 16 20 17 19 17H8L4 21V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <circle cx="9" cy="10" r="1" fill="currentColor"/>
+            <circle cx="13" cy="10" r="1" fill="currentColor"/>
+            <circle cx="17" cy="10" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <h3>Triage AI</h3>
+        <div class="h3-en">AI-Powered Triage</div>
+        <p>Lewat WhatsApp, Kader memberikan info ibu/bayi. AI memandu pertanyaan klinis.</p>
+        <p class="p-en">Via WhatsApp, Kader inputs patient info. AI guides clinical questions.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-icon-wrap" style="background: var(--teal-bright);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3L4 7V12C4 16 7 20 12 21C17 20 20 16 20 12V7L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Klasifikasi Risiko</h3>
+        <div class="h3-en">Risk Classification</div>
+        <p>Sistem menentukan: Normal, Perhatian, atau Rujukan Segera.</p>
+        <p class="p-en">System classifies: Normal, Watch, or Urgent Referral.</p>
+      </div>
+
+      <div class="how-step">
+        <div class="how-step-icon-wrap" style="background: var(--terracotta);">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M4 18V8C4 7 5 6 6 6H10L12 4H18C19 4 20 5 20 6V18C20 19 19 20 18 20H6C5 20 4 19 4 18Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 14H15M12 11V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Rujukan Tertutup</h3>
+        <div class="h3-en">Closed-Loop Referral</div>
+        <p>Rujukan otomatis ke klinik/RS PERDHAKI. Hasil dipantau.</p>
+        <p class="p-en">Auto-referral to PERDHAKI clinic/hospital. Outcomes tracked.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1.2rem 1.8rem; background: var(--teal-deep); color: var(--cream); border-radius: 4px; display: flex; align-items: center; gap: 1.5rem;">
+      <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; line-height: 1; color: var(--gold); flex-shrink: 0;">"</div>
+      <div>
+        <div style="font-family: 'Fraunces', serif; font-size: 1.1rem; line-height: 1.4; margin-bottom: 0.3rem;">SahAIbat melengkapi alur kerja Kader yang sudah ada—tidak menggantikan Buku KIA, tidak menggantikan SATUSEHAT.</div>
+        <div style="font-size: 0.8rem; opacity: 0.7; font-style: italic;">SahAIbat complements existing Kader workflows—does not replace Buku KIA or SATUSEHAT.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 5: WHY US -->
+  <section class="slide" data-slide="4">
+    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    <div class="slide-num"><span>05</span> / 06</div>
+    <div class="label">Mengapa Bermitra · Why Partner With Us</div>
+    <h2>Apa yang dapat kami <em>tawarkan</em> kepada PERDHAKI</h2>
+    <div class="h2-en">What we bring to the partnership</div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-bullet">01</div>
+        <div>
+          <h3>Platform Sudah Berjalan</h3>
+          <div class="h3-en">A working platform, not a prototype</div>
+          <p>Sistem WhatsApp, dashboard NGO, dan PWA Kader sudah dibangun, di-deploy, dan diuji. Ribuan baris kode klinis siap dipakai.
+            <span class="p-en">WhatsApp engine, NGO dashboard, and Kader PWA are already built, deployed, and tested. Thousands of lines of clinical code ready to use.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-bullet">02</div>
+        <div>
+          <h3>Bahasa Indonesia Asli</h3>
+          <div class="h3-en">Native Bahasa Indonesia</div>
+          <p>Dirancang sejak awal dalam Bahasa Indonesia—bukan terjemahan. Cocok untuk Kader dengan literasi rendah di daerah terpencil.
+            <span class="p-en">Designed from the start in Bahasa—not translated. Suitable for Kaders with low literacy in remote areas.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-bullet">03</div>
+        <div>
+          <h3>Sesuai Standar Nasional</h3>
+          <div class="h3-en">Aligned with national standards</div>
+          <p>Mengikuti Buku KIA (Permenkes No. 2/2020), standar WHO, dan UU PDP. Data Kader tetap milik PERDHAKI.
+            <span class="p-en">Follows Buku KIA (Permenkes No. 2/2020), WHO standards, UU PDP. PERDHAKI retains data ownership.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="why-card">
+        <div class="why-bullet">04</div>
+        <div>
+          <h3>Dashboard untuk PERDHAKI</h3>
+          <div class="h3-en">Dashboard for PERDHAKI</div>
+          <p>Pantauan kasus per Kader, per fasilitas, per wilayah. Laporan otomatis untuk donor, Kemenkes, dan keuskupan.
+            <span class="p-en">Track cases by Kader, facility, region. Automated reports for donors, MoH, and dioceses.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6: CLOSING -->
+  <section class="slide closing" data-slide="5">
+    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    <div class="slide-num"><span>06</span> / 06</div>
+    <div class="closing-content">
+      <div class="label" style="justify-content: center;">Kolaborasi · Collaboration</div>
+      <h2>Mari kita selamatkan ibu dan bayi <em>bersama</em></h2>
+      <div class="closing-en">Let's save mothers and babies, together</div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3rem 0;">
+        <div style="text-align: center;">
+          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--teal-deep); font-weight: 300;">2</div>
+          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Modul siap pakai</div>
+          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">Modules ready today</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--terracotta); font-weight: 300;">∞</div>
+          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Skala jaringan PERDHAKI</div>
+          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">PERDHAKI network scale</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--gold); font-weight: 300;">1</div>
+          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Misi yang sama</div>
+          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">One shared mission</div>
+        </div>
+      </div>
+
+      <div class="closing-tagline">
+        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--teal-deep);">
+          "Kesehatan adalah hak setiap orang."
+        </div>
+        <div style="font-size: 0.85rem; color: rgba(13,59,58,0.5); margin-top: 0.4rem;">— PERDHAKI, sejak 1971</div>
+      </div>
+
+      <div class="closing-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
+    </div>
+  </section>
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <button class="nav-btn" id="prevBtn">‹</button>
+  <div class="nav-dots" id="dots"></div>
+  <span class="nav-counter" id="counter">1 / 6</span>
+  <button class="nav-btn" id="nextBtn">›</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  const dotsContainer = document.getElementById('dots');
+  for (let i = 0; i < total; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  function goTo(idx) {
+    if (idx < 0 || idx >= total) return;
+    slides[current].classList.remove('active');
+    current = idx;
+    slides[current].classList.add('active');
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('prevBtn').disabled = current === 0;
+    document.getElementById('nextBtn').disabled = current === total - 1;
+  }
+
+  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End') goTo(total - 1);
+  });
+
+  // Touch swipe
+  let touchStart = 0;
+  document.addEventListener('touchstart', (e) => { touchStart = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStart - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  });
+</script>
+
+</body>
+</html>
