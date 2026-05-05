@@ -1,803 +1,2789 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SahAIbat × PERDHAKI</title>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>SahAIbat — Health, with love, for every village</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,800;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --teal-deep: #0d3b3a;
-    --teal-mid: #195e5b;
-    --teal-bright: #2a8d88;
-    --cream: #f5efe2;
-    --cream-warm: #ebe2cf;
-    --terracotta: #c8593d;
-    --gold: #d4a347;
-    --ink: #0a1f1e;
-    --rule: rgba(13, 59, 58, 0.15);
+    --teal-deep: #0d3a3a;
+    --teal-mid: #144e4e;
+    --teal-bright: #2d8a8a;
+    --cream: #faf6ed;
+    --cream-warm: #f0e9d6;
+    --ivory: #fbf9f3;
+    --gold: #c9a961;
+    --gold-deep: #a88845;
+    --terracotta: #c8694a;
+    --rust: #a04a30;
+    --ink: #0a1f1f;
+    --ink-soft: #2a3838;
+    --muted: #6b7c7c;
+    --line: rgba(13, 58, 58, 0.12);
+    --shadow: 0 30px 60px -20px rgba(13, 58, 58, 0.25);
+    --shadow-soft: 0 10px 30px -10px rgba(13, 58, 58, 0.15);
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   html, body {
+    width: 100%;
     height: 100%;
     overflow: hidden;
     background: var(--cream);
     color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--sans);
+    font-feature-settings: 'ss01', 'ss02';
     -webkit-font-smoothing: antialiased;
   }
 
-  body::before {
-    content: '';
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 20% 0%, rgba(45, 138, 138, 0.08), transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 100%, rgba(201, 169, 97, 0.1), transparent 60%),
+      var(--cream);
+  }
+
+  /* ============== TOP BAR ============== */
+  .topbar {
     position: fixed;
-    inset: 0;
-    background-image: radial-gradient(circle at 1px 1px, rgba(13,59,58,0.06) 1px, transparent 0);
-    background-size: 24px 24px;
-    pointer-events: none;
+    top: 0; left: 0; right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 36px;
+    z-index: 100;
+    background: rgba(250, 246, 237, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: -0.02em;
+    color: var(--teal-deep);
+  }
+
+  .brand-mark {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .brand-mark::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .brand-mark::before {
+    content: '';
+    position: absolute;
+    inset: 11px;
+    border-radius: 50%;
+    background: var(--cream);
+  }
+
+  .topbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .lang-toggle {
+    display: inline-flex;
+    background: var(--teal-deep);
+    border-radius: 100px;
+    padding: 3px;
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .lang-toggle button {
+    border: none;
+    background: transparent;
+    color: rgba(250, 246, 237, 0.6);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+
+  .lang-toggle button.active { color: var(--teal-deep); }
+
+  .lang-toggle::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(50% - 3px);
+    height: calc(100% - 6px);
+    background: var(--gold);
+    border-radius: 100px;
+    transition: transform 0.4s cubic-bezier(0.7, 0, 0.2, 1);
     z-index: 1;
   }
 
-  .deck {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
+  .lang-toggle.id::before { transform: translateX(100%); }
+
+  .progress-pill {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+  }
+
+  /* ============== STAGE ============== */
+  .stage {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 60px;
     overflow: hidden;
-    z-index: 2;
   }
 
   .slide {
     position: absolute;
     inset: 0;
-    padding: 4vh 6vw;
+    padding: 50px 64px;
+    overflow-y: auto;
+    overflow-x: hidden;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(30px);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                visibility 0s 0.6s;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.7s;
   }
 
   .slide.active {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
-    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
-                visibility 0s 0s;
+    transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
   }
 
-  /* === HEADER LABEL === */
-  .label {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--teal-mid);
-    font-weight: 500;
+  .slide-num {
+    position: absolute;
+    top: 28px;
+    right: 64px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+
+  /* ============== BOTTOM NAV ============== */
+  .navbar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
-    margin-bottom: 2rem;
+    justify-content: space-between;
+    padding: 0 36px;
+    z-index: 100;
+    background: rgba(250, 246, 237, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
   }
 
-  .label::before {
-    content: '';
-    width: 28px;
-    height: 1px;
-    background: var(--teal-mid);
-  }
-
-  /* === COVER SLIDE === */
-  .cover {
-    background:
-      radial-gradient(ellipse at top right, rgba(42,141,136,0.12), transparent 60%),
-      var(--cream);
-  }
-
-  .cover-grid {
-    display: grid;
-    grid-template-columns: 1.3fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    height: 100%;
-  }
-
-  .cover h1 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(3rem, 6vw, 6rem);
-    font-weight: 300;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    color: var(--teal-deep);
-    margin-bottom: 1.5rem;
-  }
-
-  .cover h1 em {
-    font-style: italic;
-    font-weight: 400;
-    color: var(--terracotta);
-  }
-
-  .cover .subtitle-id {
-    font-family: 'Fraunces', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--teal-mid);
-    margin-bottom: 0.4rem;
-    line-height: 1.3;
-  }
-
-  .cover .subtitle-en {
-    font-size: 1rem;
-    color: rgba(13,59,58,0.6);
-    font-style: italic;
-    margin-bottom: 3rem;
-  }
-
-  .cover .partners {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-top: auto;
-    padding-top: 2rem;
-    border-top: 1px solid var(--rule);
-  }
-
-  .partner-mark {
-    font-family: 'Fraunces', serif;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--teal-deep);
-  }
-
-  .partner-x {
-    color: var(--terracotta);
-    font-style: italic;
-    font-size: 1.5rem;
-  }
-
-  .cover-art {
-    position: relative;
-    height: 80%;
-    display: flex;
+  .nav-btn {
+    background: var(--teal-deep);
+    color: var(--cream);
+    border: none;
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.25s;
   }
 
-  .phone-frame {
+  .nav-btn:hover { background: var(--gold); color: var(--teal-deep); transform: translateY(-1px); }
+  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+  .dots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(13, 58, 58, 0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .dot:hover { background: rgba(13, 58, 58, 0.5); }
+  .dot.active { background: var(--gold); width: 24px; border-radius: 4px; }
+
+  .nav-pair { display: flex; gap: 10px; align-items: center; }
+
+  .nav-hint {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ============== TYPOGRAPHY ============== */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold-deep);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    display: inline-block;
+  }
+
+  .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(38px, 5vw, 72px);
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    color: var(--teal-deep);
+  }
+
+  .display em { font-style: italic; color: var(--gold-deep); font-weight: 400; }
+
+  .h1 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(30px, 3.6vw, 52px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--teal-deep);
+  }
+
+  .h2 {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    color: var(--teal-deep);
+  }
+
+  .h3 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+
+  .body-lg {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(17px, 1.4vw, 22px);
+    line-height: 1.5;
+    color: var(--ink-soft);
+    letter-spacing: -0.005em;
+  }
+
+  .body {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+
+  .small {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  /* ============== SLIDE 1: COVER ============== */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 80px 96px 60px;
+    position: relative;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60%; height: 70%;
+    background:
+      radial-gradient(circle at 70% 30%, rgba(201, 169, 97, 0.18), transparent 55%),
+      radial-gradient(circle at 90% 60%, rgba(45, 138, 138, 0.12), transparent 60%);
+    pointer-events: none;
+  }
+
+  .cover-mark {
+    width: 88px;
+    height: 88px;
+    position: relative;
+  }
+
+  .cover-mark svg { width: 100%; height: 100%; }
+
+  .cover-lead {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(40px, 4.5vw, 78px);
+    line-height: 1.02;
+    color: var(--teal-deep);
+    letter-spacing: -0.03em;
+    max-width: 14ch;
+  }
+
+  .cover-lead .accent { color: var(--gold-deep); font-style: italic; }
+
+  .cover-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(80px, 11vw, 180px);
+    line-height: 0.85;
+    letter-spacing: -0.05em;
+    color: var(--teal-deep);
+    margin-top: 12px;
+  }
+
+  .cover-title .ai { color: var(--gold); font-style: italic; font-weight: 500; }
+
+  .cover-foot {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 60px;
+    border-top: 1px solid var(--line);
+    padding-top: 22px;
+  }
+
+  .cover-foot-block .small {
+    font-family: var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .cover-foot-block .text {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--teal-deep);
+    font-weight: 500;
+  }
+
+  /* ============== SLIDE 2: BELIEF / MANIFESTO ============== */
+  .manifesto {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    height: 100%;
+    align-items: center;
+    padding: 0 32px;
+  }
+
+  .manifesto-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3.2vw, 46px);
+    line-height: 1.18;
+    color: var(--teal-deep);
+    letter-spacing: -0.02em;
+  }
+
+  .manifesto-quote .em {
+    color: var(--gold-deep);
+    font-weight: 400;
+  }
+
+  .manifesto-quote .underline {
+    background: linear-gradient(180deg, transparent 65%, rgba(201, 169, 97, 0.4) 65%, rgba(201, 169, 97, 0.4) 92%, transparent 92%);
+    padding: 0 4px;
+  }
+
+  .belief-list {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .belief {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .belief:last-child { border: none; padding-bottom: 0; }
+
+  .belief-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gold-deep);
+    flex-shrink: 0;
+    margin-top: 4px;
+    letter-spacing: 0.1em;
+  }
+
+  .belief-body h4 {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--teal-deep);
+    font-weight: 500;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .belief-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 3: WHO WE ARE ============== */
+  .who-grid {
+    display: grid;
+    grid-template-columns: 0.9fr 1.4fr;
+    gap: 64px;
+    height: 100%;
+    align-items: start;
+    padding-top: 40px;
+  }
+
+  .who-intro h1 { margin-bottom: 26px; }
+  .who-intro p { margin-bottom: 18px; }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .team-card {
+    background: var(--ivory);
+    padding: 26px 24px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    transition: all 0.3s;
+  }
+
+  .team-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-left-color: var(--terracotta);
+  }
+
+  .team-name {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--teal-deep);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .team-role {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold-deep);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .team-bio {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 4: PROBLEM ============== */
+  .problem-wrap {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 40px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .stat {
+    border-top: 1px solid var(--teal-deep);
+    padding-top: 18px;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 56px;
+    color: var(--teal-deep);
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+
+  .stat-num .unit {
+    font-size: 26px;
+    color: var(--gold-deep);
+  }
+
+  .stat-label {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 10px;
+    line-height: 1.5;
+  }
+
+  .stat-source {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ============== SLIDE 5: WHAT WE BUILT (3 PILLARS) ============== */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 36px;
+  }
+
+  .pillar {
+    background: var(--ivory);
+    padding: 30px 26px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--gold);
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .pillar:hover::before { transform: scaleX(1); }
+  .pillar:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+
+  .pillar-num {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-style: italic;
+    font-size: 60px;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  .pillar h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 24px;
+    color: var(--teal-deep);
+    margin: 14px 0 12px;
+    letter-spacing: -0.015em;
+  }
+
+  .pillar p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    margin-bottom: 14px;
+  }
+
+  .pillar .tag {
+    display: inline-block;
+    background: var(--teal-deep);
+    color: var(--cream);
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* ============== SLIDE 6: KADER WHATSAPP DEEP DIVE ============== */
+  .kader-deep {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .phone-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .phone {
     width: 280px;
-    height: 560px;
+    height: 540px;
     background: var(--teal-deep);
     border-radius: 36px;
     padding: 14px;
-    box-shadow: 0 30px 60px -20px rgba(13,59,58,0.4);
-    transform: rotate(-3deg);
+    box-shadow: var(--shadow);
     position: relative;
+  }
+
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 50%;
+    transform: translateX(-50%);
+    width: 70px; height: 6px;
+    background: rgba(250, 246, 237, 0.2);
+    border-radius: 100px;
+    z-index: 2;
   }
 
   .phone-screen {
-    background: #e5ddd5;
-    width: 100%;
+    background: #ECE5DD;
     height: 100%;
     border-radius: 24px;
     overflow: hidden;
-    position: relative;
     display: flex;
     flex-direction: column;
+    position: relative;
   }
 
   .wa-header {
-    background: #075e54;
+    background: #075E54;
+    padding: 28px 14px 10px;
     color: white;
-    padding: 0.7rem 0.8rem 0.5rem;
-    font-size: 0.7rem;
+    font-size: 12px;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
   }
 
   .wa-avatar {
-    width: 28px;
-    height: 28px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
     background: var(--gold);
+    color: var(--teal-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  .wa-name { font-weight: 600; font-size: 13px; }
+  .wa-status { font-size: 10px; opacity: 0.7; margin-top: 1px; }
+
+  .wa-body {
+    flex: 1;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow-y: auto;
+    background: #ECE5DD;
+    background-image:
+      radial-gradient(circle at 25% 35%, rgba(75, 85, 99, 0.04) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(75, 85, 99, 0.04) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+
+  .msg {
+    max-width: 78%;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.4;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.08);
+  }
+
+  .msg.in {
+    background: white;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+  }
+
+  .msg.out {
+    background: #DCF8C6;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+  }
+
+  .msg .sub { color: var(--muted); font-size: 9.5px; margin-top: 2px; }
+  .msg b { color: var(--teal-deep); font-weight: 700; }
+  .msg .urgent { color: var(--rust); font-weight: 700; }
+
+  .kader-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 26px;
+  }
+
+  .feature {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .feature-icon {
+    width: 36px; height: 36px;
+    background: var(--cream-warm);
+    border: 1px solid var(--line);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
     color: var(--teal-deep);
-    font-size: 0.85rem;
+    flex-shrink: 0;
   }
 
-  .wa-body {
-    flex: 1;
-    padding: 0.8rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+  .feature-body h5 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--teal-deep);
+    margin-bottom: 3px;
+    letter-spacing: 0.01em;
+  }
+
+  .feature-body p {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ============== SLIDE 7: MODULES GRID ============== */
+  .modules-wrap {
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 28px;
+    height: 100%;
+  }
+
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .module {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 22px 20px;
+    transition: all 0.3s;
+    position: relative;
     overflow: hidden;
   }
 
-  .bubble {
-    max-width: 85%;
-    padding: 0.55rem 0.7rem;
-    border-radius: 8px;
-    font-size: 0.62rem;
-    line-height: 1.35;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
-    opacity: 0;
-    animation: bubbleIn 0.5s forwards;
+  .module:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+    border-color: var(--teal-bright);
   }
 
-  .bubble.in { background: white; }
-  .bubble.out { background: #dcf8c6; align-self: flex-end; }
-  .bubble.b1 { animation-delay: 0.4s; }
-  .bubble.b2 { animation-delay: 0.9s; }
-  .bubble.b3 { animation-delay: 1.4s; }
-  .bubble.b4 { animation-delay: 1.9s; }
+  .module.coming {
+    background: transparent;
+    border: 1px dashed var(--gold);
+  }
 
-  @keyframes bubbleIn {
+  .module-tag {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .module-tag.live {
+    background: rgba(45, 138, 138, 0.15);
+    color: var(--teal-bright);
+  }
+
+  .module-tag.soon {
+    background: rgba(201, 169, 97, 0.2);
+    color: var(--gold-deep);
+  }
+
+  .module-icon {
+    width: 32px; height: 32px;
+    margin-bottom: 14px;
+    color: var(--gold-deep);
+  }
+
+  .module h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--teal-deep);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .module p {
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 8: OFFLINE PWA ============== */
+  .offline-grid {
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .offline-visual {
+    position: relative;
+    height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .signal-rings {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ring {
+    position: absolute;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    opacity: 0;
+    animation: ring 4s ease-out infinite;
+  }
+
+  .ring:nth-child(1) { animation-delay: 0s; }
+  .ring:nth-child(2) { animation-delay: 1.3s; }
+  .ring:nth-child(3) { animation-delay: 2.6s; }
+
+  @keyframes ring {
+    0% { width: 80px; height: 80px; opacity: 0.7; }
+    100% { width: 380px; height: 380px; opacity: 0; }
+  }
+
+  .device-stack {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    align-items: center;
+  }
+
+  .offline-badge {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 18px 28px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .offline-badge .icon { font-size: 24px; margin-bottom: 6px; color: var(--gold); }
+  .offline-badge .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+  .offline-badge .status {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .sync-arrow {
+    color: var(--teal-bright);
+    font-size: 24px;
+    animation: bob 2s ease-in-out infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); opacity: 0.6; }
+    50% { transform: translateY(4px); opacity: 1; }
+  }
+
+  .cloud-badge {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    padding: 14px 22px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cloud-badge .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold-deep);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .cloud-badge .text {
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--teal-deep);
+    margin-top: 4px;
+    font-weight: 500;
+  }
+
+  .offline-list {
+    list-style: none;
+    margin-top: 28px;
+  }
+
+  .offline-list li {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+
+  .offline-list li:last-child { border: none; }
+
+  .offline-list li .check {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .offline-list li h6 {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--teal-deep);
+    margin-bottom: 3px;
+  }
+
+  .offline-list li p {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 9: KASIH (CHATBOT) ============== */
+  .kasih-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .kasih-name-card {
+    margin-top: 26px;
+    background: linear-gradient(135deg, var(--teal-deep), var(--teal-mid));
+    color: var(--cream);
+    padding: 28px;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kasih-name-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.3), transparent 70%);
+    border-radius: 50%;
+  }
+
+  .kasih-name-card .word-mark {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--gold);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+
+  .kasih-name-card .meaning {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(250, 246, 237, 0.7);
+    margin-bottom: 8px;
+  }
+
+  .kasih-name-card .desc {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    line-height: 1.4;
+    color: var(--cream);
+    font-weight: 300;
+  }
+
+  .kasih-features {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .kasih-card {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    padding: 20px 22px;
+    border-radius: 4px;
+    border-left: 2px solid var(--terracotta);
+  }
+
+  .kasih-card h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--teal-deep);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .kasih-card p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 10: ARCHITECTURE / SAFETY ============== */
+  .arch-wrap {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 36px;
+  }
+
+  .arch-flow {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 22px;
+    align-items: center;
+    margin-top: 16px;
+  }
+
+  .arch-node {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 22px 20px;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+
+  .arch-node.center {
+    background: var(--teal-deep);
+    color: var(--cream);
+    border-color: var(--teal-deep);
+  }
+
+  .arch-node.center h5 { color: var(--cream); }
+  .arch-node.center p { color: rgba(250, 246, 237, 0.85); }
+
+  .arch-node h5 {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--teal-deep);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .arch-node p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .arch-node .ic {
+    width: 32px; height: 32px;
+    margin: 0 auto 10px;
+    color: var(--gold-deep);
+  }
+
+  .arch-node.center .ic { color: var(--gold); }
+
+  .arch-arrow {
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .safety-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 8px;
+  }
+
+  .safety {
+    border-top: 2px solid var(--gold);
+    padding-top: 16px;
+  }
+
+  .safety h6 {
+    font-family: var(--serif);
+    font-size: 17px;
+    color: var(--teal-deep);
+    font-weight: 600;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .safety p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 11: SUSTAINABILITY ============== */
+  .sustain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .cost-viz {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    padding: 32px;
+    border-radius: 6px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .cost-viz h5 {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 22px;
+  }
+
+  .cost-bar-row {
+    display: grid;
+    grid-template-columns: 130px 1fr 90px;
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .cost-label {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+
+  .cost-bar {
+    height: 24px;
+    background: rgba(13, 58, 58, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .cost-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--teal-bright), var(--teal-deep));
+    border-radius: 2px;
+    transition: width 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  .cost-bar-fill.gold {
+    background: linear-gradient(90deg, var(--gold), var(--gold-deep));
+  }
+
+  .cost-value {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--teal-deep);
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .cost-note {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 18px;
+    line-height: 1.5;
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+  }
+
+  .sustain-points {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 20px;
+  }
+
+  .sustain-point {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .sustain-point .sp-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--gold);
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .sustain-point h6 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--teal-deep);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .sustain-point p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* ============== SLIDE 12: ROADMAP ============== */
+  .roadmap {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 36px;
+    height: 100%;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 30px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 8%;
+    right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--teal-bright), var(--gold), var(--terracotta));
+    z-index: 0;
+  }
+
+  .phase {
+    text-align: center;
+    padding: 0 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .phase-dot {
+    width: 64px; height: 64px;
+    background: var(--cream);
+    border: 3px solid var(--gold);
+    border-radius: 50%;
+    margin: 0 auto 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+  }
+
+  .phase-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 8px;
+  }
+
+  .phase h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 22px;
+    color: var(--teal-deep);
+    margin-bottom: 10px;
+    letter-spacing: -0.015em;
+  }
+
+  .phase p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 30ch;
+    margin: 0 auto;
+  }
+
+  .phase-tags {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+  }
+
+  .pt {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 9px;
+    background: var(--cream-warm);
+    color: var(--teal-deep);
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============== SLIDE 13: CTA ============== */
+  .cta {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 80px;
+    position: relative;
+  }
+
+  .cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(201, 169, 97, 0.15), transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(45, 138, 138, 0.15), transparent 55%);
+    pointer-events: none;
+  }
+
+  .cta-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 24px;
+  }
+
+  .cta-headline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(48px, 6vw, 90px);
+    line-height: 1.05;
+    color: var(--teal-deep);
+    letter-spacing: -0.03em;
+    max-width: 18ch;
+    margin: 0 auto;
+  }
+
+  .cta-headline .accent { color: var(--gold-deep); }
+
+  .cta-sub {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(18px, 1.6vw, 24px);
+    color: var(--ink-soft);
+    margin-top: 28px;
+    max-width: 50ch;
+    line-height: 1.5;
+  }
+
+  .cta-actions {
+    margin-top: 50px;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn {
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 16px 32px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    transition: all 0.25s;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .btn-primary {
+    background: var(--teal-deep);
+    color: var(--cream);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    color: var(--teal-deep);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--teal-deep);
+    border: 1px solid var(--teal-deep);
+  }
+
+  .btn-ghost:hover {
+    background: var(--teal-deep);
+    color: var(--cream);
+  }
+
+  .cta-foot {
+    margin-top: 60px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ============== SLIDE 14: CONTACT ============== */
+  .contact-wrap {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .contact-card {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    padding: 36px;
+    border-radius: 6px;
+    border-left: 4px solid var(--gold);
+  }
+
+  .contact-card .name {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--teal-deep);
+    letter-spacing: -0.015em;
+  }
+
+  .contact-card .role {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gold-deep);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 6px;
+    margin-bottom: 24px;
+  }
+
+  .contact-line {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .contact-line .lbl {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    width: 60px;
+    flex-shrink: 0;
+  }
+
+  .closing-quote {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 42px);
+    line-height: 1.2;
+    color: var(--teal-deep);
+    letter-spacing: -0.02em;
+  }
+
+  .closing-quote .em { color: var(--gold-deep); }
+
+  .closing-attr {
+    margin-top: 24px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ============== HIDE-WHEN-LANG ============== */
+  body[data-lang="id"] [data-en],
+  body[data-lang="en"] [data-id] { display: none; }
+
+  /* ============== SCROLLBARS ============== */
+  .slide::-webkit-scrollbar { width: 6px; }
+  .slide::-webkit-scrollbar-track { background: transparent; }
+  .slide::-webkit-scrollbar-thumb { background: rgba(13, 58, 58, 0.15); border-radius: 100px; }
+
+  /* ============== WHO WE ARE — VIANTRA ECOSYSTEM ============== */
+  .who-viantra {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .wv-meaning {
+    margin-top: 28px;
+    border-left: 2px solid var(--gold);
+    padding: 12px 0 12px 20px;
+    background: rgba(201, 169, 97, 0.06);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .wv-meaning-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 6px;
+  }
+
+  .wv-meaning p {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .wv-meaning-em {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--teal-deep);
+    background: rgba(201, 169, 97, 0.18);
+    padding: 0 4px;
+  }
+
+  .wv-tree {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .wv-node {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .wv-node-mark {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(201, 169, 97, 0.2);
+  }
+
+  .wv-root {
+    background: linear-gradient(135deg, var(--teal-deep), var(--teal-mid));
+    color: var(--cream);
+    border-color: var(--teal-deep);
+    width: 75%;
+    text-align: center;
+    padding: 20px 24px;
+  }
+
+  .wv-root .wv-node-label {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 28px;
+    letter-spacing: -0.02em;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+
+  .wv-root .wv-node-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .wv-trunk {
+    width: 1px;
+    height: 32px;
+    background: var(--line);
+    position: relative;
+  }
+
+  .wv-trunk::before, .wv-trunk::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 130px;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .wv-trunk::before { right: 0; }
+  .wv-trunk::after  { left: 0; }
+
+  .wv-children {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .wv-child {
+    padding: 18px 16px;
+    position: relative;
+  }
+
+  .wv-child::before {
+    content: '';
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 28px;
+    background: var(--line);
+  }
+
+  .wv-child .wv-node-label {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--teal-deep);
+    margin-bottom: 6px;
+    margin-top: 18px;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .wv-child .wv-node-sub {
+    font-size: 11.5px;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+
+  .wv-node-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 3px 8px;
+    border-radius: 100px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: absolute;
+    top: 12px;
+    left: 16px;
+  }
+
+  .wv-active {
+    border-left: 3px solid var(--gold);
+  }
+
+  .wv-active .wv-node-tag {
+    background: rgba(201, 169, 97, 0.18);
+    color: var(--gold-deep);
+  }
+
+  .wv-future {
+    background: transparent;
+    border: 1px dashed var(--line);
+    box-shadow: none;
+  }
+
+  .wv-future .wv-node-tag {
+    background: rgba(107, 124, 124, 0.1);
+    color: var(--muted);
+  }
+
+  .wv-future .wv-node-label {
+    color: var(--ink-soft);
+  }
+
+  /* ============== WHY SAHAIBAT ============== */
+  .why-wrap {
+    display: grid;
+    grid-template-columns: 0.95fr 1fr;
+    gap: 56px;
+    height: 100%;
+    align-items: center;
+  }
+
+  .why-pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .why-pillar {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 20px;
+    align-items: start;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .why-pillar:last-child { border-bottom: none; padding-bottom: 0; }
+
+  .why-pillar-num {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-top: 2px;
+  }
+
+  .why-pillar h4 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--teal-deep);
+    margin-bottom: 8px;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+  }
+
+  .why-pillar p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+  }
+
+  /* ============== Q&A SLIDES ============== */
+  .qa-wrap {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 30px;
+    padding-top: 6px;
+  }
+
+  .qa-question, .qa-answer {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .qa-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 32px;
+    flex-shrink: 0;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .qa-mark-a {
+    background: var(--gold);
+    color: var(--teal-deep);
+  }
+
+  .qa-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+    margin-bottom: 10px;
+  }
+
+  .qa-text {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(28px, 3.2vw, 42px);
+    line-height: 1.1;
+    color: var(--teal-deep);
+    letter-spacing: -0.02em;
+  }
+
+  .qa-text em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold-deep);
+  }
+
+  .qa-answer-body { padding-top: 6px; }
+
+  .qa-lead {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: 22px;
+    color: var(--teal-deep);
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+  }
+
+  .qa-blocks {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .qa-block {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    padding: 20px 22px;
+    border-radius: 4px;
+  }
+
+  .qa-block-wide {
+    grid-column: 1 / -1;
+    border-left-color: var(--terracotta);
+    background: linear-gradient(120deg, var(--ivory), rgba(200, 105, 74, 0.04));
+  }
+
+  .qa-block h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--teal-deep);
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+
+  .qa-block p {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .qa-block strong {
+    color: var(--teal-deep);
+    font-weight: 600;
+  }
+
+  /* ============== FUEL GRID (Q&A 2) ============== */
+  .fuel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .fuel-card {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-top: 2px solid var(--gold);
+    padding: 18px 20px;
+    border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .fuel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .fuel-icon {
+    color: var(--gold-deep);
+    margin-bottom: 10px;
+  }
+
+  .fuel-card h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--teal-deep);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+
+  .fuel-card p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+  }
+
+  .fuel-bottom-line {
+    background: var(--teal-deep);
+    color: var(--cream);
+    padding: 22px 26px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 18px;
+    align-items: start;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fuel-bottom-line::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle, rgba(201, 169, 97, 0.25), transparent 65%);
+    border-radius: 50%;
+  }
+
+  .fuel-bottom-mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin-top: 2px;
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .fuel-bottom-mark::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border-radius: 50%;
+    background: var(--teal-deep);
+  }
+
+  .fuel-bottom-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .fuel-bottom-text {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.45;
+    color: var(--cream);
+    letter-spacing: -0.005em;
+  }
+
+  .fuel-bottom-text strong {
+    color: var(--gold);
+    font-weight: 500;
+    font-style: italic;
+  }
+
+  /* ============== INTERACTIVE DEMO ============== */
+  .demo-wrap {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 28px;
+  }
+
+  .demo-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .demo-tabs {
+    display: inline-flex;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 4px;
+    gap: 2px;
+    flex-shrink: 0;
+  }
+
+  .demo-tab {
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 9px 16px;
+    border-radius: 100px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+  }
+
+  .demo-tab:hover { color: var(--teal-deep); }
+
+  .demo-tab.active {
+    background: var(--teal-deep);
+    color: var(--gold);
+  }
+
+  .demo-tab.active svg { color: var(--gold); }
+
+  .demo-stage {
+    position: relative;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 30px;
+    overflow: hidden;
+  }
+
+  .demo-panel {
+    display: none;
+    grid-template-columns: 320px 1fr;
+    gap: 36px;
+    align-items: center;
+    height: 100%;
+  }
+
+  .demo-panel.active { display: grid; }
+
+  .demo-device {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* PWA frame styled like a phone but with PWA chrome */
+  .pwa-frame {
+    width: 280px;
+    height: 540px;
+    background: #1a2929;
+    border-radius: 36px;
+    padding: 14px;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pwa-frame::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 50%;
+    transform: translateX(-50%);
+    width: 70px; height: 6px;
+    background: rgba(250, 246, 237, 0.2);
+    border-radius: 100px;
+    z-index: 2;
+  }
+
+  .pwa-statusbar {
+    background: var(--teal-deep);
+    color: var(--cream);
+    border-radius: 24px 24px 0 0;
+    padding: 30px 16px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-family: var(--mono);
+  }
+
+  .pwa-signal {
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 12px;
+    transition: opacity 0.4s;
+  }
+
+  .pwa-signal .bar {
+    width: 3px;
+    background: var(--gold);
+    border-radius: 1px;
+  }
+
+  .pwa-signal .b1 { height: 3px; }
+  .pwa-signal .b2 { height: 6px; }
+  .pwa-signal .b3 { height: 9px; }
+  .pwa-signal .b4 { height: 12px; }
+
+  .pwa-signal.offline .bar { background: rgba(250, 246, 237, 0.18); }
+  .pwa-signal.offline .b1::before { content: ''; }
+
+  .pwa-app {
+    flex: 1;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 24px 24px;
+    overflow: hidden;
+  }
+
+  .pwa-banner {
+    background: var(--teal-bright);
+    color: var(--cream);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.4s;
+  }
+
+  .pwa-banner.offline {
+    background: var(--rust);
+  }
+
+  .pwa-banner.queued {
+    background: var(--gold-deep);
+  }
+
+  .pwa-banner.synced {
+    background: var(--teal-bright);
+  }
+
+  .pwa-banner-icon { font-size: 16px; }
+
+  .pwa-banner-title {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+
+  .pwa-banner-sub {
+    font-size: 10px;
+    opacity: 0.85;
+    margin-top: 1px;
+  }
+
+  .pwa-screen {
+    flex: 1;
+    padding: 14px;
+    overflow-y: auto;
+    background: var(--cream);
+  }
+
+  .pwa-screen::-webkit-scrollbar { width: 4px; }
+  .pwa-screen::-webkit-scrollbar-thumb { background: rgba(13, 58, 58, 0.2); }
+
+  .pwa-card {
+    background: white;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 3px solid var(--gold);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .pwa-card.danger { border-left-color: var(--rust); }
+  .pwa-card.success { border-left-color: var(--teal-bright); }
+
+  .pwa-card-title {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--teal-deep);
+    margin-bottom: 4px;
+  }
+
+  .pwa-card-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 6px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .pwa-card-body {
+    font-size: 11.5px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+
+  .pwa-card-tag {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 9px;
+    padding: 2px 7px;
+    border-radius: 100px;
+    margin-top: 6px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .pwa-card-tag.queued {
+    background: rgba(168, 136, 69, 0.15);
+    color: var(--gold-deep);
+  }
+
+  .pwa-card-tag.synced {
+    background: rgba(45, 138, 138, 0.15);
+    color: var(--teal-bright);
+  }
+
+  .pwa-card-tag.offline {
+    background: rgba(160, 74, 48, 0.15);
+    color: var(--rust);
+  }
+
+  .pwa-form-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(13, 58, 58, 0.06);
+    font-size: 11px;
+  }
+
+  .pwa-form-row:last-child { border: none; }
+
+  .pwa-form-row .lbl {
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .pwa-form-row .val {
+    color: var(--teal-deep);
+    font-weight: 600;
+  }
+
+  .pwa-empty {
+    text-align: center;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 30px 10px;
+    font-style: italic;
+  }
+
+  /* Demo controls */
+  .demo-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .demo-step-info {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+
+  .step-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gold-deep);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .step-counter {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--teal-deep);
+    letter-spacing: -0.01em;
+  }
+
+  .step-counter span:first-child {
+    color: var(--gold-deep);
+    font-style: italic;
+  }
+
+  .demo-narration {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.4;
+    color: var(--teal-deep);
+    min-height: 80px;
+    letter-spacing: -0.01em;
+  }
+
+  .demo-narration .em { color: var(--gold-deep); font-weight: 500; }
+
+  .demo-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .dbtn {
+    border: none;
+    cursor: pointer;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 11px 20px;
+    border-radius: 100px;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+  }
+
+  .dbtn-primary {
+    background: var(--teal-deep);
+    color: var(--cream);
+  }
+
+  .dbtn-primary:hover {
+    background: var(--gold);
+    color: var(--teal-deep);
+    transform: translateY(-1px);
+  }
+
+  .dbtn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .dbtn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+
+  .dbtn-ghost:hover {
+    color: var(--teal-deep);
+    border-color: var(--teal-deep);
+  }
+
+  /* Animation for new messages appearing */
+  @keyframes msgIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .bubble strong { color: var(--teal-deep); }
-
-  /* === STANDARD SLIDE === */
-  .slide-num {
-    position: absolute;
-    top: 4vh;
-    right: 6vw;
-    font-family: 'Fraunces', serif;
-    font-size: 0.9rem;
-    color: rgba(13,59,58,0.4);
-    font-style: italic;
+  .msg.appearing, .pwa-card.appearing {
+    animation: msgIn 0.4s ease-out;
   }
 
-  .slide-num span { color: var(--terracotta); font-weight: 600; }
-
-  .slide h2 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.2rem, 4vw, 3.6rem);
-    font-weight: 400;
-    line-height: 1.05;
-    letter-spacing: -0.015em;
-    color: var(--teal-deep);
-    margin-bottom: 0.4rem;
-  }
-
-  .slide h2 em {
-    font-style: italic;
-    color: var(--terracotta);
-  }
-
-  .slide .h2-en {
-    font-size: 1rem;
-    color: rgba(13,59,58,0.5);
-    font-style: italic;
-    margin-bottom: 2.5rem;
-    font-family: 'Fraunces', serif;
-  }
-
-  /* === PROBLEM SLIDE === */
-  .problem-grid {
+  /* ============== INTEGRATION SLIDE ============== */
+  .integ-wrap {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 1rem;
+    grid-template-rows: auto auto 1fr;
+    gap: 30px;
+    height: 100%;
   }
 
-  .stat-card {
-    background: white;
-    padding: 2rem 1.8rem;
-    border-radius: 4px;
-    border-left: 3px solid var(--terracotta);
-    position: relative;
-  }
-
-  .stat-card:nth-child(2) { border-left-color: var(--gold); }
-  .stat-card:nth-child(3) { border-left-color: var(--teal-bright); }
-
-  .stat-number {
-    font-family: 'Fraunces', serif;
-    font-size: 3.5rem;
-    font-weight: 300;
-    color: var(--teal-deep);
-    line-height: 1;
-    margin-bottom: 0.8rem;
-    letter-spacing: -0.02em;
-  }
-
-  .stat-label-id {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--teal-deep);
-    margin-bottom: 0.3rem;
-    line-height: 1.3;
-  }
-
-  .stat-label-en {
-    font-size: 0.78rem;
-    color: rgba(13,59,58,0.5);
-    font-style: italic;
-    line-height: 1.3;
-  }
-
-  /* === SOLUTION SLIDE === */
-  .solution-grid {
+  .integ-flow {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 14px;
     align-items: center;
-  }
-
-  .solution-flow {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .flow-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 1.2rem;
-    padding: 1.2rem;
-    background: white;
-    border-radius: 4px;
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 24px;
     position: relative;
   }
 
-  .flow-step::before {
+  .integ-flow::before {
     content: '';
     position: absolute;
-    left: 2.4rem;
-    bottom: -1.2rem;
-    width: 1px;
-    height: 1.2rem;
-    background: var(--rule);
+    bottom: 24px;
+    left: 12%;
+    right: 12%;
+    height: 28px;
+    border: 1px dashed var(--gold);
+    border-top: none;
+    border-radius: 0 0 100px 100px;
+    opacity: 0.5;
   }
 
-  .flow-step:last-child::before { display: none; }
-
-  .flow-num {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--teal-deep);
-    color: var(--cream);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 600;
-    flex-shrink: 0;
-  }
-
-  .flow-step:nth-child(2) .flow-num { background: var(--teal-mid); }
-  .flow-step:nth-child(3) .flow-num { background: var(--teal-bright); }
-  .flow-step:nth-child(4) .flow-num { background: var(--terracotta); }
-
-  .flow-content-id {
-    font-weight: 500;
-    color: var(--teal-deep);
-    margin-bottom: 0.2rem;
-    font-size: 0.95rem;
-  }
-
-  .flow-content-en {
-    font-size: 0.78rem;
-    color: rgba(13,59,58,0.55);
-    font-style: italic;
-  }
-
-  .solution-visual {
-    position: relative;
-    height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* === MODULES SLIDE === */
-  .modules-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .module-card {
+  .integ-node {
+    text-align: center;
+    padding: 18px 14px;
+    border-radius: 6px;
     background: white;
-    padding: 1.8rem;
-    border-radius: 4px;
-    border-top: 4px solid var(--teal-bright);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
     position: relative;
+    z-index: 1;
   }
 
-  .module-card.featured {
-    border-top-color: var(--terracotta);
-    background: linear-gradient(180deg, #fff8f0 0%, white 100%);
+  .integ-node-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: var(--gold-deep);
+    margin-bottom: 12px;
   }
 
-  .module-card.featured::after {
-    content: 'PRIORITAS';
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: var(--terracotta);
-    background: rgba(200,89,61,0.1);
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
-  }
-
-  .module-card.future {
-    border-top-color: var(--gold);
-    background: rgba(212,163,71,0.04);
-  }
-
-  .module-card.future::after {
-    content: 'OPSIONAL';
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 0.6rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    background: rgba(212,163,71,0.15);
-    padding: 0.2rem 0.5rem;
-    border-radius: 2px;
-  }
-
-  .module-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -15px rgba(13,59,58,0.2);
-  }
-
-  .module-icon {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 1.2rem;
-  }
-
-  .module-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.4rem;
-    font-weight: 500;
+  .integ-node-icon {
     color: var(--teal-deep);
-    margin-bottom: 0.2rem;
+    margin-bottom: 8px;
   }
 
-  .module-card .h3-en {
-    font-size: 0.78rem;
-    color: rgba(13,59,58,0.5);
-    font-style: italic;
-    margin-bottom: 1rem;
+  .integ-node h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--teal-deep);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
   }
 
-  .module-card ul {
-    list-style: none;
-    margin-top: 0.8rem;
-  }
-
-  .module-card li {
-    font-size: 0.85rem;
-    color: rgba(13,59,58,0.75);
-    padding: 0.3rem 0 0.3rem 1.2rem;
-    position: relative;
+  .integ-node p {
+    font-size: 11px;
     line-height: 1.4;
+    color: var(--ink-soft);
   }
 
-  .module-card li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.7rem;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--terracotta);
+  .integ-arrow {
+    position: relative;
+    color: var(--gold);
+    font-family: var(--serif);
+    font-size: 22px;
+    text-align: center;
+    padding: 10px 0;
   }
 
-  /* === HOW IT WORKS === */
-  .how-grid {
+  .integ-arrow::before {
+    content: '\\2192';
+    display: block;
+  }
+
+  .arrow-label {
+    display: block;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-style: normal;
+  }
+
+  .integ-arrow-back {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: var(--terracotta);
+    padding-top: 16px;
+    margin-top: 0;
+  }
+
+  .integ-arrow-back::before {
+    content: '\\21A9';
+    font-size: 16px;
+  }
+
+  .integ-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 16px;
   }
 
-  .how-step {
-    background: white;
-    padding: 1.5rem;
+  .integ-card {
+    background: var(--ivory);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--gold);
+    padding: 20px 18px;
     border-radius: 4px;
-    position: relative;
+    transition: all 0.3s;
   }
 
-  .how-step-icon-wrap {
-    width: 48px;
-    height: 48px;
-    background: var(--teal-deep);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1rem;
-    color: var(--cream);
+  .integ-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-soft);
+    border-top-color: var(--terracotta);
   }
 
-  .how-step h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
+  .integ-card-icon {
+    color: var(--gold-deep);
+    margin-bottom: 12px;
+  }
+
+  .integ-card h5 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 16px;
     color: var(--teal-deep);
-    margin-bottom: 0.2rem;
-    font-weight: 500;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
   }
 
-  .how-step .h3-en {
-    font-size: 0.72rem;
-    color: rgba(13,59,58,0.5);
-    font-style: italic;
-    margin-bottom: 0.8rem;
-  }
-
-  .how-step p {
-    font-size: 0.85rem;
+  .integ-card p {
+    font-size: 12.5px;
     line-height: 1.5;
-    color: rgba(13,59,58,0.75);
-    margin-bottom: 0.4rem;
+    color: var(--ink-soft);
   }
 
-  .how-step .p-en {
-    font-size: 0.72rem;
-    color: rgba(13,59,58,0.45);
-    font-style: italic;
-  }
-
-  /* === WHY US === */
-  .why-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 1rem;
-  }
-
-  .why-card {
-    background: white;
-    padding: 1.8rem 2rem;
-    border-radius: 4px;
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-  }
-
-  .why-bullet {
-    font-family: 'Fraunces', serif;
-    font-size: 2.2rem;
-    color: var(--terracotta);
-    font-weight: 300;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .why-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.2rem;
-    color: var(--teal-deep);
-    margin-bottom: 0.2rem;
-    font-weight: 500;
-  }
-
-  .why-card .h3-en {
-    font-size: 0.74rem;
-    color: rgba(13,59,58,0.5);
-    font-style: italic;
-    margin-bottom: 0.8rem;
-  }
-
-  .why-card p {
-    font-size: 0.9rem;
-    color: rgba(13,59,58,0.7);
-    line-height: 1.5;
-  }
-
-  .why-card p .p-en {
-    display: block;
-    font-size: 0.78rem;
-    color: rgba(13,59,58,0.45);
-    font-style: italic;
-    margin-top: 0.3rem;
-  }
-
-  /* === CLOSING === */
-  .closing {
-    background:
-      radial-gradient(ellipse at bottom left, rgba(200,89,61,0.08), transparent 60%),
-      var(--cream);
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .closing-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .closing h2 {
-    font-family: 'Fraunces', serif;
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
-    font-weight: 300;
-    line-height: 1.05;
-    color: var(--teal-deep);
-    margin-bottom: 1rem;
-  }
-
-  .closing h2 em {
-    font-style: italic;
-    color: var(--terracotta);
-  }
-
-  .closing-en {
-    font-family: 'Fraunces', serif;
-    font-size: 1.4rem;
-    font-style: italic;
-    color: rgba(13,59,58,0.55);
-    margin-bottom: 3rem;
-  }
-
-  .closing-tagline {
-    font-size: 1rem;
-    color: var(--teal-mid);
-    letter-spacing: 0.05em;
-    line-height: 1.6;
-    margin-top: 2rem;
-  }
-
-  .closing-mark {
-    margin-top: 4rem;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--teal-deep);
-  }
-
-  .closing-mark .x { color: var(--terracotta); margin: 0 0.6rem; }
-
-  /* === NAVIGATION === */
-  .nav {
-    position: fixed;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: rgba(13,59,58,0.92);
-    backdrop-filter: blur(10px);
-    padding: 0.6rem 1rem;
-    border-radius: 100px;
-    z-index: 100;
-    box-shadow: 0 10px 30px -5px rgba(13,59,58,0.3);
-  }
-
-  .nav-btn {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: none;
-    background: rgba(245,239,226,0.1);
-    color: var(--cream);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s ease;
-    font-size: 1rem;
-  }
-
-  .nav-btn:hover { background: rgba(245,239,226,0.25); }
-  .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .nav-dots {
-    display: flex;
-    gap: 0.4rem;
-    padding: 0 0.8rem;
-  }
-
-  .nav-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: rgba(245,239,226,0.25);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .nav-dot.active {
-    background: var(--cream);
-    width: 22px;
-    border-radius: 4px;
-  }
-
-  .nav-counter {
-    font-family: 'Fraunces', serif;
-    color: var(--cream);
-    font-size: 0.8rem;
-    font-style: italic;
-    padding: 0 0.5rem;
-  }
-
-  /* === DECORATIVE === */
-  .corner-mark {
-    position: absolute;
-    top: 4vh;
-    left: 6vw;
-    font-family: 'Fraunces', serif;
-    font-style: italic;
-    font-size: 0.9rem;
-    color: rgba(13,59,58,0.35);
-  }
-
-  .corner-mark .x {
-    color: var(--terracotta);
-    margin: 0 0.4rem;
-  }
-
-  /* === RESPONSIVE === */
+  /* ============== RESPONSIVE ============== */
   @media (max-width: 900px) {
-    .cover-grid, .solution-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .problem-grid, .modules-grid, .how-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
-    .cover-art { display: none; }
-    .slide { padding: 3vh 5vw; }
+    .slide { padding: 28px 32px; }
+    .manifesto, .who-grid, .kader-deep, .offline-grid, .kasih-grid, .sustain-grid, .contact-wrap, .who-viantra, .why-wrap { grid-template-columns: 1fr; gap: 28px; }
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .arch-flow { grid-template-columns: 1fr; }
+    .arch-arrow { transform: rotate(90deg); }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .demo-panel { grid-template-columns: 1fr; }
+    .integ-flow { grid-template-columns: 1fr; }
+    .integ-flow::before { display: none; }
+    .integ-arrow::before { content: '\\2193'; }
+    .integ-grid { grid-template-columns: repeat(2, 1fr); }
+    .wv-children { grid-template-columns: 1fr; gap: 24px; }
+    .wv-child::before { display: none; }
+    .wv-trunk::before, .wv-trunk::after { display: none; }
+    .qa-question, .qa-answer { grid-template-columns: 50px 1fr; gap: 16px; }
+    .qa-mark { width: 44px; height: 44px; font-size: 22px; }
+    .qa-blocks { grid-template-columns: 1fr; }
+    .fuel-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
-<body>
+<body data-lang="en">
 
-<div class="deck" id="deck">
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-mark"></div>
+    <span>SahAIbat</span>
+  </div>
+  <div class="topbar-controls">
+    <div class="lang-toggle" id="langToggle" title="Switch language">
+      <button class="active" data-lang-btn="en">EN</button>
+      <button data-lang-btn="id">ID</button>
+    </div>
+    <div class="progress-pill" id="progressPill">01 / 14</div>
+  </div>
+</div>
 
-  <!-- SLIDE 1: COVER -->
-  <section class="slide active cover" data-slide="0">
-    <div class="cover-grid">
-      <div>
-        <div class="label">Perkenalan Produk · Product Introduction</div>
-        <h1>Sah<em>AI</em>bat</h1>
-        <div class="subtitle-id">Asisten AI untuk Kader Posyandu</div>
-        <div class="subtitle-en">An AI assistant for community health workers</div>
-        <div class="partners">
-          <span class="partner-mark">SahAIbat</span>
-          <span class="partner-x">×</span>
-          <span class="partner-mark">PERDHAKI</span>
+<!-- STAGE -->
+<div class="stage" id="stage">
+
+  <!-- ========== SLIDE 1: COVER ========== -->
+  <section class="slide active" data-slide="1">
+    <div class="slide-num">SAHAIBAT · 2026</div>
+    <div class="cover">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div class="cover-mark">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#0d3a3a"/>
+            <circle cx="50" cy="50" r="32" fill="#c9a961"/>
+            <circle cx="50" cy="50" r="16" fill="#faf6ed"/>
+            <path d="M50 35 v30 M35 50 h30" stroke="#0d3a3a" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div style="text-align: right;">
+          <div class="eyebrow" data-en>A clinical companion for community health workers</div>
+          <div class="eyebrow" data-id>Pendamping klinis untuk kader kesehatan masyarakat</div>
         </div>
       </div>
-      <div class="cover-art">
-        <div class="phone-frame">
-          <div class="phone-screen">
-            <div class="wa-header">
-              <div class="wa-avatar">S</div>
-              <div>
-                <div style="font-weight:600;">SahAIbat</div>
-                <div style="font-size:0.55rem;opacity:0.8;">online</div>
-              </div>
+
+      <div>
+        <div class="cover-lead" data-en>Health, with love,<br><span class="accent">for every village.</span></div>
+        <div class="cover-lead" data-id>Kesehatan, dengan kasih,<br><span class="accent">untuk setiap desa.</span></div>
+        <div class="cover-title">Sah<span class="ai">AI</span>bat</div>
+      </div>
+
+      <div class="cover-foot">
+        <div class="cover-foot-block">
+          <div class="small" data-en>Built for</div>
+          <div class="small" data-id>Dibangun untuk</div>
+          <div class="text" data-en>Indonesia's frontline kaders</div>
+          <div class="text" data-id>Kader garis depan Indonesia</div>
+        </div>
+        <div class="cover-foot-block">
+          <div class="small" data-en>By</div>
+          <div class="small" data-id>Oleh</div>
+          <div class="text">Viantra · Toronto + Jakarta</div>
+        </div>
+        <div class="cover-foot-block">
+          <div class="small" data-en>Production</div>
+          <div class="small" data-id>Versi Produksi</div>
+          <div class="text">v1.0 · April 2026</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SLIDE 2: WHO WE ARE ========== -->
+  <section class="slide" data-slide="2">
+    <div class="slide-num">02 — WHO WE ARE</div>
+    <div class="who-viantra">
+      <div class="wv-left">
+        <div class="eyebrow" data-en>The practice behind the product</div>
+        <div class="eyebrow" data-id>Praktik di balik produk</div>
+        <h1 class="display" data-en>We are <em>Viantra</em>.<br>Quiet Canadian technology<br>for human healthcare.</h1>
+        <h1 class="display" data-id>Kami adalah <em>Viantra</em>.<br>Teknologi Kanada yang tenang<br>untuk kesehatan manusia.</h1>
+
+        <p class="body-lg" data-en style="margin-top: 22px; max-width: 56ch;">Viantra is a Canadian health technology company building simple, human-centered tools that strengthen primary healthcare at the grassroots. Inspired by Canada&rsquo;s values of fairness, dignity, and universal care, we focus on reaching the communities the digital revolution forgot &mdash; not on chasing headlines.</p>
+        <p class="body-lg" data-id style="margin-top: 22px; max-width: 56ch;">Viantra adalah perusahaan teknologi kesehatan asal Kanada yang membangun alat-alat sederhana berorientasi manusia untuk memperkuat layanan kesehatan dasar di tingkat akar rumput. Terinspirasi dari nilai-nilai Kanada &mdash; keadilan, martabat, dan layanan kesehatan universal &mdash; kami fokus menjangkau komunitas yang dilupakan oleh revolusi digital, bukan mengejar berita utama.</p>
+
+        <div class="wv-meaning">
+          <div class="wv-meaning-label" data-en>What &ldquo;Viantra&rdquo; means</div>
+          <div class="wv-meaning-label" data-id>Arti &ldquo;Viantra&rdquo;</div>
+          <p data-en><span class="wv-meaning-em">Via</span> &mdash; a path, a way forward. <span class="wv-meaning-em">Antra</span> &mdash; guidance, care, movement toward something better. Together: helping communities take their first steps toward better health, with clarity and dignity.</p>
+          <p data-id><span class="wv-meaning-em">Via</span> &mdash; jalan, arah ke depan. <span class="wv-meaning-em">Antra</span> &mdash; bimbingan, perawatan, gerakan menuju yang lebih baik. Bersama: membantu komunitas mengambil langkah pertama menuju kesehatan yang lebih baik, dengan kejelasan dan martabat.</p>
+        </div>
+      </div>
+
+      <div class="wv-right">
+        <div class="wv-tree">
+          <div class="wv-node wv-root">
+            <div class="wv-node-mark"></div>
+            <div class="wv-node-label">Viantra</div>
+            <div class="wv-node-sub" data-en>Toronto · Canadian health tech</div>
+            <div class="wv-node-sub" data-id>Toronto · Teknologi kesehatan Kanada</div>
+          </div>
+
+          <div class="wv-trunk"></div>
+
+          <div class="wv-children">
+            <div class="wv-node wv-child wv-active">
+              <div class="wv-node-tag" data-en>Live · Indonesia</div>
+              <div class="wv-node-tag" data-id>Aktif · Indonesia</div>
+              <div class="wv-node-label">SahAIbat</div>
+              <div class="wv-node-sub" data-en>A clinical companion for community health workers and the families they serve.</div>
+              <div class="wv-node-sub" data-id>Pendamping klinis untuk kader kesehatan masyarakat dan keluarga yang mereka layani.</div>
             </div>
-            <div class="wa-body">
-              <div class="bubble in b1"><strong>Selamat pagi Kader!</strong><br>Mau periksa apa hari ini?</div>
-              <div class="bubble out b2">Ibu hamil, 28 tahun, G2P1</div>
-              <div class="bubble in b3"><strong>Tekanan darah ibu?</strong><br>Mohon diukur dulu ya 🩺</div>
-              <div class="bubble out b4">160/100</div>
+            <div class="wv-node wv-child wv-future">
+              <div class="wv-node-tag" data-en>On the horizon</div>
+              <div class="wv-node-tag" data-id>Di cakrawala</div>
+              <div class="wv-node-label" data-en>Quiet tools for local doctors</div>
+              <div class="wv-node-label" data-id>Alat tenang untuk dokter lokal</div>
+              <div class="wv-node-sub" data-en>Better information, earlier &mdash; for the clinics holding it all together.</div>
+              <div class="wv-node-sub" data-id>Informasi yang lebih baik, lebih awal &mdash; untuk klinik yang menopang semuanya.</div>
+            </div>
+            <div class="wv-node wv-child wv-future">
+              <div class="wv-node-tag" data-en>On the horizon</div>
+              <div class="wv-node-tag" data-id>Di cakrawala</div>
+              <div class="wv-node-label" data-en>Tools for worried families</div>
+              <div class="wv-node-label" data-id>Alat untuk keluarga yang khawatir</div>
+              <div class="wv-node-sub" data-en>Clear, gentle guidance in those early moments before professional care.</div>
+              <div class="wv-node-sub" data-id>Bimbingan yang jelas dan lembut di saat-saat awal sebelum layanan profesional.</div>
             </div>
           </div>
         </div>
@@ -805,326 +2791,1560 @@
     </div>
   </section>
 
-  <!-- SLIDE 2: WHAT IS IT -->
-  <section class="slide" data-slide="1">
-    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
-    <div class="slide-num"><span>02</span> / 06</div>
-    <div class="label">Apa itu SahAIbat · What is SahAIbat</div>
-    <h2>Sahabat <em>cerdas</em> untuk setiap Kader Posyandu</h2>
-    <div class="h2-en">A smart companion for every community health worker</div>
-
-    <div style="max-width: 900px; font-size: 1.15rem; line-height: 1.6; color: rgba(13,59,58,0.8); margin-bottom: 2rem;">
-      <p style="margin-bottom: 0.6rem;">SahAIbat adalah <strong style="color: var(--teal-deep);">platform AI berbasis WhatsApp</strong> yang membantu Kader Posyandu melakukan triage klinis di lapangan—tanpa aplikasi tambahan, tanpa pelatihan rumit, langsung dalam Bahasa Indonesia.</div>
-      <p style="font-style: italic; font-size: 0.95rem; color: rgba(13,59,58,0.5);">SahAIbat is a WhatsApp-based AI platform that helps Posyandu Kaders perform clinical triage in the field—no extra app, no complex training, directly in Bahasa Indonesia.</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem;">
-      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--teal-bright);">
-        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">1</div>
-        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Lewat WhatsApp</div>
-        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Via WhatsApp</div>
-        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">Kader pakai HP yang sudah ada. Tidak perlu unduh apa-apa.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">Kaders use phones they already have.</span></p>
-      </div>
-
-      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--terracotta);">
-        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">2</div>
-        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Bekerja Offline</div>
-        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Works offline (PWA)</div>
-        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">PWA dengan sinkronisasi otomatis saat sinyal tersedia.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">PWA with auto-sync when signal returns.</span></p>
-      </div>
-
-      <div style="padding: 1.5rem; background: white; border-radius: 4px; border-left: 3px solid var(--gold);">
-        <div style="font-family: 'Fraunces', serif; font-size: 2rem; color: var(--teal-deep); font-weight: 300;">3</div>
-        <div style="font-weight: 500; color: var(--teal-deep); margin-top: 0.4rem;">Sesuai Pedoman</div>
-        <div style="font-size: 0.8rem; color: rgba(13,59,58,0.55); font-style: italic;">Aligned with national protocols</div>
-        <p style="font-size: 0.85rem; color: rgba(13,59,58,0.7); margin-top: 0.6rem; line-height: 1.5;">Mengikuti Buku KIA, Permenkes, standar WHO.<br><span style="font-style: italic; color: rgba(13,59,58,0.45); font-size: 0.78rem;">Follows Buku KIA, Permenkes, WHO standards.</span></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SLIDE 3: MODULES -->
-  <section class="slide" data-slide="2">
-    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
-    <div class="slide-num"><span>03</span> / 06</div>
-    <div class="label">Modul yang Tersedia · Available Modules</div>
-    <h2>Yang sudah <em>siap</em> untuk PERDHAKI</h2>
-    <div class="h2-en">What is ready for PERDHAKI today</div>
-
-    <div class="modules-grid">
-      <div class="module-card featured">
-        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
-          <circle cx="24" cy="14" r="6" stroke="#0d3b3a" stroke-width="2"/>
-          <path d="M14 38C14 32 18 28 24 28C30 28 34 32 34 38" stroke="#0d3b3a" stroke-width="2" stroke-linecap="round"/>
-          <circle cx="34" cy="22" r="3" fill="#c8593d"/>
-        </svg>
-        <h3>Ibu Hamil</h3>
-        <div class="h3-en">Maternal Care</div>
-        <ul>
-          <li>Pemeriksaan ANC dan tekanan darah</li>
-          <li>Deteksi tanda bahaya kehamilan</li>
-          <li>Risiko preeklampsia, pendarahan</li>
-          <li>Rujukan otomatis ke Puskesmas/RS</li>
-        </ul>
-      </div>
-
-      <div class="module-card featured">
-        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
-          <path d="M24 8C18 8 14 14 14 22C14 28 18 34 24 34C30 34 34 28 34 22C34 14 30 8 24 8Z" stroke="#0d3b3a" stroke-width="2"/>
-          <circle cx="20" cy="20" r="1.5" fill="#0d3b3a"/>
-          <circle cx="28" cy="20" r="1.5" fill="#0d3b3a"/>
-          <path d="M20 26C21 27 22.5 27.5 24 27.5C25.5 27.5 27 27 28 26" stroke="#c8593d" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M14 38L34 38" stroke="#0d3b3a" stroke-width="2" stroke-linecap="round"/>
-        </svg>
-        <h3>Bayi Baru Lahir</h3>
-        <div class="h3-en">Neonatal Care</div>
-        <ul>
-          <li>Skrining tanda bahaya neonatus</li>
-          <li>Asfiksia, ikterus, hipotermia</li>
-          <li>Pemantauan masa nifas (Ibu)</li>
-          <li>Rujukan dini ke fasilitas terdekat</li>
-        </ul>
-      </div>
-
-      <div class="module-card future">
-        <svg class="module-icon" viewBox="0 0 48 48" fill="none">
-          <rect x="14" y="16" width="20" height="22" rx="2" stroke="#0d3b3a" stroke-width="2"/>
-          <path d="M19 16V12C19 10 20 8 22 8H26C28 8 29 10 29 12V16" stroke="#0d3b3a" stroke-width="2"/>
-          <path d="M24 22V32M19 27H29" stroke="#d4a347" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        <h3>Imunisasi</h3>
-        <div class="h3-en">Immunisation Tracking</div>
-        <ul>
-          <li>Identifikasi anak <em>zero-dose</em></li>
-          <li>Pelacakan jadwal imunisasi</li>
-          <li>Integrasi dengan program Gavi</li>
-          <li>Pengembangan modul Phase 2</li>
-        </ul>
-      </div>
-    </div>
-
-    <div style="margin-top: 1.5rem; padding: 1rem 1.5rem; background: rgba(42,141,136,0.08); border-radius: 4px; font-size: 0.85rem; color: rgba(13,59,58,0.7);">
-      <strong style="color: var(--teal-deep);">Catatan:</strong> Modul Ibu Hamil dan Bayi Baru Lahir <strong>sudah dibangun dan siap</strong> deploy. Modul Imunisasi akan dikembangkan dalam fase kedua, terintegrasi dengan kerjasama PERDHAKI–Kemenkes–Gavi.
-      <br><em style="color: rgba(13,59,58,0.5); font-size: 0.78rem; margin-top: 0.3rem; display: block;">Maternal and Neonatal modules are already built and ready. Immunisation module will be developed in Phase 2, integrated with PERDHAKI's existing Gavi-MoH partnership.</em>
-    </div>
-  </section>
-
-  <!-- SLIDE 4: HOW IT WORKS -->
+  <!-- ========== SLIDE 2: BELIEF / MANIFESTO ========== -->
   <section class="slide" data-slide="3">
-    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
-    <div class="slide-num"><span>04</span> / 06</div>
-    <div class="label">Cara Kerja · How It Works</div>
-    <h2>Dari Kader ke Rumah Sakit—<em>satu rantai</em></h2>
-    <div class="h2-en">From Kader to hospital—one continuous chain</div>
-
-    <div class="how-grid">
-      <div class="how-step">
-        <div class="how-step-icon-wrap">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2C9 2 7 4 7 7C7 10 9 12 12 12C15 12 17 10 17 7C17 4 15 2 12 2Z" stroke="currentColor" stroke-width="1.8"/>
-            <path d="M5 22C5 17 8 14 12 14C16 14 19 17 19 22" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Kader</h3>
-        <div class="h3-en">Community Health Worker</div>
-        <p>Kader Posyandu melakukan kunjungan rutin atau insidental.</p>
-        <p class="p-en">Kader conducts routine or ad-hoc visits.</p>
-      </div>
-
-      <div class="how-step">
-        <div class="how-step-icon-wrap" style="background: var(--teal-mid);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M3 5C3 4 4 3 5 3H19C20 3 21 4 21 5V15C21 16 20 17 19 17H8L4 21V5Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <circle cx="9" cy="10" r="1" fill="currentColor"/>
-            <circle cx="13" cy="10" r="1" fill="currentColor"/>
-            <circle cx="17" cy="10" r="1" fill="currentColor"/>
-          </svg>
-        </div>
-        <h3>Triage AI</h3>
-        <div class="h3-en">AI-Powered Triage</div>
-        <p>Lewat WhatsApp, Kader memberikan info ibu/bayi. AI memandu pertanyaan klinis.</p>
-        <p class="p-en">Via WhatsApp, Kader inputs patient info. AI guides clinical questions.</p>
-      </div>
-
-      <div class="how-step">
-        <div class="how-step-icon-wrap" style="background: var(--teal-bright);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3L4 7V12C4 16 7 20 12 21C17 20 20 16 20 12V7L12 3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <h3>Klasifikasi Risiko</h3>
-        <div class="h3-en">Risk Classification</div>
-        <p>Sistem menentukan: Normal, Perhatian, atau Rujukan Segera.</p>
-        <p class="p-en">System classifies: Normal, Watch, or Urgent Referral.</p>
-      </div>
-
-      <div class="how-step">
-        <div class="how-step-icon-wrap" style="background: var(--terracotta);">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-            <path d="M4 18V8C4 7 5 6 6 6H10L12 4H18C19 4 20 5 20 6V18C20 19 19 20 18 20H6C5 20 4 19 4 18Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
-            <path d="M9 14H15M12 11V17" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Rujukan Tertutup</h3>
-        <div class="h3-en">Closed-Loop Referral</div>
-        <p>Rujukan otomatis ke klinik/RS PERDHAKI. Hasil dipantau.</p>
-        <p class="p-en">Auto-referral to PERDHAKI clinic/hospital. Outcomes tracked.</p>
-      </div>
-    </div>
-
-    <div style="margin-top: 2rem; padding: 1.2rem 1.8rem; background: var(--teal-deep); color: var(--cream); border-radius: 4px; display: flex; align-items: center; gap: 1.5rem;">
-      <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; line-height: 1; color: var(--gold); flex-shrink: 0;">"</div>
+    <div class="slide-num">03 — OUR BELIEF</div>
+    <div class="manifesto">
       <div>
-        <div style="font-family: 'Fraunces', serif; font-size: 1.1rem; line-height: 1.4; margin-bottom: 0.3rem;">SahAIbat melengkapi alur kerja Kader yang sudah ada—tidak menggantikan Buku KIA, tidak menggantikan SATUSEHAT.</div>
-        <div style="font-size: 0.8rem; opacity: 0.7; font-style: italic;">SahAIbat complements existing Kader workflows—does not replace Buku KIA or SATUSEHAT.</div>
+        <div class="eyebrow" data-en>What we believe</div>
+        <div class="eyebrow" data-id>Yang kami yakini</div>
+
+        <div class="manifesto-quote" data-en>
+          The dignity of a child<br>
+          in a remote village is<br>
+          <span class="underline em">not negotiable.</span><br>
+          <br>
+          Distance, weak signal,<br>
+          a missing ID card &mdash;<br>
+          <span class="em">none of these</span> should<br>
+          decide whether a fever<br>
+          gets caught in time.
+        </div>
+
+        <div class="manifesto-quote" data-id>
+          Martabat seorang anak<br>
+          di desa terpencil itu<br>
+          <span class="underline em">tidak bisa ditawar.</span><br>
+          <br>
+          Jarak, sinyal lemah,<br>
+          NIK yang belum ada &mdash;<br>
+          <span class="em">tidak boleh</span> menentukan<br>
+          apakah demam tertangani<br>
+          tepat waktu.
+        </div>
+      </div>
+
+      <div class="belief-list">
+        <div class="belief">
+          <div class="belief-num">I.</div>
+          <div class="belief-body">
+            <h4 data-en>Health is a basic human right</h4>
+            <h4 data-id>Kesehatan adalah hak asasi setiap orang</h4>
+            <p data-en>Not a benefit. Not a transaction. A right that travels with the child, wherever she is born.</p>
+            <p data-id>Bukan fasilitas. Bukan transaksi. Hak yang menyertai sang anak, di mana pun ia dilahirkan.</p>
+          </div>
+        </div>
+        <div class="belief">
+          <div class="belief-num">II.</div>
+          <div class="belief-body">
+            <h4 data-en>Technology serves people, not the other way around</h4>
+            <h4 data-id>Teknologi melayani manusia, bukan sebaliknya</h4>
+            <p data-en>We meet kaders on WhatsApp because that&rsquo;s where they already are. No app store. No new login. No new burden.</p>
+            <p data-id>Kami menemui kader di WhatsApp karena di sanalah mereka berada. Tanpa app store, tanpa login baru, tanpa beban baru.</p>
+          </div>
+        </div>
+        <div class="belief">
+          <div class="belief-num">III.</div>
+          <div class="belief-body">
+            <h4 data-en>Clinical safety before everything</h4>
+            <h4 data-id>Keselamatan klinis di atas segalanya</h4>
+            <p data-en>Rules first. AI second. Every triage outcome is explainable, auditable, and aligned with WHO and Buku KIA.</p>
+            <p data-id>Aturan klinis dulu. AI kemudian. Setiap hasil triase dapat dijelaskan, diaudit, dan selaras dengan WHO dan Buku KIA.</p>
+          </div>
+        </div>
+        <div class="belief">
+          <div class="belief-num">IV.</div>
+          <div class="belief-body">
+            <h4 data-en>Built to outlast the grant</h4>
+            <h4 data-id>Dibangun agar bertahan lebih lama dari hibahnya</h4>
+            <p data-en>If the funding stopped tomorrow, the system still works. Stewardship, not dependency.</p>
+            <p data-id>Jika pendanaan berhenti besok, sistemnya tetap berjalan. Tanggung jawab, bukan ketergantungan.</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 5: WHY US -->
+
+  <!-- ========== SLIDE 4: WHY SAHAIBAT ========== -->
   <section class="slide" data-slide="4">
-    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
-    <div class="slide-num"><span>05</span> / 06</div>
-    <div class="label">Mengapa Bermitra · Why Partner With Us</div>
-    <h2>Apa yang dapat kami <em>tawarkan</em> kepada PERDHAKI</h2>
-    <div class="h2-en">What we bring to the partnership</div>
-
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-bullet">01</div>
-        <div>
-          <h3>Platform Sudah Berjalan</h3>
-          <div class="h3-en">A working platform, not a prototype</div>
-          <p>Sistem WhatsApp, dashboard NGO, dan PWA Kader sudah dibangun, di-deploy, dan diuji. Ribuan baris kode klinis siap dipakai.
-            <span class="p-en">WhatsApp engine, NGO dashboard, and Kader PWA are already built, deployed, and tested. Thousands of lines of clinical code ready to use.</span>
-          </p>
-        </div>
+    <div class="slide-num">04 — WHY SAHAIBAT</div>
+    <div class="why-wrap">
+      <div class="why-intro">
+        <div class="eyebrow" data-en>Mission · Why this product, why now</div>
+        <div class="eyebrow" data-id>Misi · Mengapa produk ini, mengapa sekarang</div>
+        <h1 class="display" data-en>The kader is already<br>doing the work.<br><em>We just give her<br>better tools.</em></h1>
+        <h1 class="display" data-id>Kader sudah<br>mengerjakannya.<br><em>Kami hanya memberi<br>alat yang lebih baik.</em></h1>
+        <p class="body-lg" data-en style="margin-top: 18px; max-width: 56ch;">Many lives are shaped by what happens in the earliest moments &mdash; when a parent is unsure, when a kader sees one weight reading that doesn&rsquo;t look right, when the nearest Puskesmas is two hours away. That is where SahAIbat works. Quietly. Carefully. Beside the people already doing the hardest work in primary care.</p>
+        <p class="body-lg" data-id style="margin-top: 18px; max-width: 56ch;">Banyak nyawa ditentukan oleh apa yang terjadi di saat-saat paling awal &mdash; ketika orang tua ragu, ketika kader melihat satu hasil penimbangan yang janggal, ketika Puskesmas terdekat berjarak dua jam. Di sanalah SahAIbat bekerja. Dengan tenang. Dengan hati-hati. Di sebelah orang-orang yang sudah melakukan pekerjaan tersulit di layanan primer.</p>
       </div>
 
-      <div class="why-card">
-        <div class="why-bullet">02</div>
-        <div>
-          <h3>Bahasa Indonesia Asli</h3>
-          <div class="h3-en">Native Bahasa Indonesia</div>
-          <p>Dirancang sejak awal dalam Bahasa Indonesia—bukan terjemahan. Cocok untuk Kader dengan literasi rendah di daerah terpencil.
-            <span class="p-en">Designed from the start in Bahasa—not translated. Suitable for Kaders with low literacy in remote areas.</span>
-          </p>
+      <div class="why-pillars">
+        <div class="why-pillar">
+          <div class="why-pillar-num">i.</div>
+          <h4 data-en>Honour the people closest to the problem</h4>
+          <h4 data-id>Hormati mereka yang paling dekat dengan masalah</h4>
+          <p data-en>1.5 million kaders walk into Posyandu every month. They know the families. They know the children. The world&rsquo;s most expensive AI cannot replace what they already know &mdash; but it can carry the load they cannot.</p>
+          <p data-id>1,5 juta kader masuk ke Posyandu setiap bulan. Mereka mengenal keluarganya. Mereka mengenal anaknya. AI termahal di dunia tidak bisa menggantikan apa yang mereka tahu &mdash; tetapi bisa mengangkat beban yang tidak bisa mereka pikul sendiri.</p>
         </div>
-      </div>
-
-      <div class="why-card">
-        <div class="why-bullet">03</div>
-        <div>
-          <h3>Sesuai Standar Nasional</h3>
-          <div class="h3-en">Aligned with national standards</div>
-          <p>Mengikuti Buku KIA (Permenkes No. 2/2020), standar WHO, dan UU PDP. Data Kader tetap milik PERDHAKI.
-            <span class="p-en">Follows Buku KIA (Permenkes No. 2/2020), WHO standards, UU PDP. PERDHAKI retains data ownership.</span>
-          </p>
+        <div class="why-pillar">
+          <div class="why-pillar-num">ii.</div>
+          <h4 data-en>Reach where the system stops</h4>
+          <h4 data-id>Jangkau di mana sistem berhenti</h4>
+          <p data-en>The healthcare system reaches the Puskesmas. Then it stops. The last two kilometres &mdash; from clinic to home, from worry to action &mdash; is where children are quietly lost. SahAIbat is built for those last two kilometres.</p>
+          <p data-id>Sistem kesehatan menjangkau Puskesmas. Lalu berhenti. Dua kilometer terakhir &mdash; dari klinik ke rumah, dari kekhawatiran ke tindakan &mdash; di sanalah anak-anak hilang dalam diam. SahAIbat dibangun untuk dua kilometer terakhir itu.</p>
         </div>
-      </div>
-
-      <div class="why-card">
-        <div class="why-bullet">04</div>
-        <div>
-          <h3>Dashboard untuk PERDHAKI</h3>
-          <div class="h3-en">Dashboard for PERDHAKI</div>
-          <p>Pantauan kasus per Kader, per fasilitas, per wilayah. Laporan otomatis untuk donor, Kemenkes, dan keuskupan.
-            <span class="p-en">Track cases by Kader, facility, region. Automated reports for donors, MoH, and dioceses.</span>
-          </p>
+        <div class="why-pillar">
+          <div class="why-pillar-num">iii.</div>
+          <h4 data-en>Honest about what we are not</h4>
+          <h4 data-id>Jujur tentang apa yang bukan kami</h4>
+          <p data-en>SahAIbat is a companion, not a decision-maker. It does not diagnose. It does not replace empathy, experience, or clinical judgement. It is gratis at the point of use, today and after every grant ends. The mission is not the company.</p>
+          <p data-id>SahAIbat adalah pendamping, bukan pengambil keputusan. Ia tidak mendiagnosis. Ia tidak menggantikan empati, pengalaman, atau penilaian klinis. Ia gratis di titik penggunaan, hari ini dan setelah setiap hibah selesai. Misi bukanlah perusahaan.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 6: CLOSING -->
-  <section class="slide closing" data-slide="5">
-    <div class="corner-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
-    <div class="slide-num"><span>06</span> / 06</div>
-    <div class="closing-content">
-      <div class="label" style="justify-content: center;">Kolaborasi · Collaboration</div>
-      <h2>Mari kita selamatkan ibu dan bayi <em>bersama</em></h2>
-      <div class="closing-en">Let's save mothers and babies, together</div>
-
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3rem 0;">
-        <div style="text-align: center;">
-          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--teal-deep); font-weight: 300;">2</div>
-          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Modul siap pakai</div>
-          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">Modules ready today</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--terracotta); font-weight: 300;">∞</div>
-          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Skala jaringan PERDHAKI</div>
-          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">PERDHAKI network scale</div>
-        </div>
-        <div style="text-align: center;">
-          <div style="font-family: 'Fraunces', serif; font-size: 2.5rem; color: var(--gold); font-weight: 300;">1</div>
-          <div style="font-weight: 500; color: var(--teal-deep); font-size: 0.9rem;">Misi yang sama</div>
-          <div style="font-size: 0.75rem; color: rgba(13,59,58,0.5); font-style: italic;">One shared mission</div>
-        </div>
+  <!-- ========== SLIDE 3: WHO WE ARE ========== -->
+  <section class="slide" data-slide="5">
+    <div class="slide-num">05 — THE TEAM</div>
+    <div class="who-grid">
+      <div class="who-intro">
+        <div class="eyebrow" data-en>The team</div>
+        <div class="eyebrow" data-id>Tim kami</div>
+        <h1 class="h1" data-en>A small team, a long horizon.</h1>
+        <h1 class="h1" data-id>Tim kecil, cita-cita panjang.</h1>
+        <p class="body" data-en>SahAIbat is built by clinicians, kaders, and engineers who have walked into Posyandu sessions, sat with mothers, and seen what gets missed when the nearest Puskesmas is two hours away.</p>
+        <p class="body" data-id>SahAIbat dibangun oleh klinisi, kader, dan insinyur yang pernah berada di Posyandu, duduk bersama para ibu, dan menyaksikan apa yang terlewat ketika Puskesmas terdekat berjarak dua jam perjalanan.</p>
+        <p class="body" data-en>We are not a vendor. We are partners walking alongside the people doing the work.</p>
+        <p class="body" data-id>Kami bukan vendor. Kami pendamping yang berjalan bersama mereka yang melakukan pekerjaan di lapangan.</p>
       </div>
 
-      <div class="closing-tagline">
-        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; color: var(--teal-deep);">
-          "Kesehatan adalah hak setiap orang."
+      <div class="team-grid">
+        <div class="team-card">
+          <div class="team-name">Sanjib</div>
+          <div class="team-role" data-en>Founder · Lead Engineer</div>
+          <div class="team-role" data-id>Pendiri · Insinyur Utama</div>
+          <p class="team-bio" data-en>Architect of the platform. 15+ years in software, scaled systems for healthcare, energy, and government. Builds what kaders can actually use.</p>
+          <p class="team-bio" data-id>Arsitek platform. 15+ tahun di software, membangun sistem berskala untuk kesehatan, energi, dan pemerintahan. Membangun yang benar-benar bisa dipakai kader.</p>
         </div>
-        <div style="font-size: 0.85rem; color: rgba(13,59,58,0.5); margin-top: 0.4rem;">— PERDHAKI, sejak 1971</div>
+        <div class="team-card">
+          <div class="team-name">Dr. Ratih Indriyani</div>
+          <div class="team-role" data-en>Clinical Validation · Training</div>
+          <div class="team-role" data-id>Validasi Klinis · Pelatihan</div>
+          <p class="team-bio" data-en>M.Biomed. Validates every triage protocol against Buku KIA and Permenkes. Designs kader training through Plataran Sehat LMS.</p>
+          <p class="team-bio" data-id>M.Biomed. Memvalidasi setiap protokol triase dengan Buku KIA dan Permenkes. Merancang pelatihan kader melalui LMS Plataran Sehat.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-name">Saurav Das</div>
+          <div class="team-role" data-en>UI &amp; Robotics Engineer</div>
+          <div class="team-role" data-id>Insinyur UI &amp; Robotika</div>
+          <p class="team-bio" data-en>10+ years across robotics, embedded systems, and human-centred interfaces. Designs the moments where the kader meets the machine &mdash; the screen, the message, the small things that decide whether a tool gets used or set aside.</p>
+          <p class="team-bio" data-id>10+ tahun di robotika, sistem tertanam, dan antarmuka berbasis manusia. Merancang momen saat kader bertemu mesin &mdash; layar, pesan, hal-hal kecil yang menentukan apakah sebuah alat dipakai atau ditinggalkan.</p>
+        </div>
+        <div class="team-card">
+          <div class="team-name" data-en>Field partners</div>
+          <div class="team-name" data-id>Mitra lapangan</div>
+          <div class="team-role" data-en>Kaders · Clinicians · NGOs</div>
+          <div class="team-role" data-id>Kader · Klinisi · NGO</div>
+          <p class="team-bio" data-en>SahAIbat is shaped in the field. Kaders in TTU, TTS, and Sikka, programme managers in NTT, clinicians in Posyandu &mdash; the system you see is what they asked for, not what we imagined for them.</p>
+          <p class="team-bio" data-id>SahAIbat dibentuk di lapangan. Kader di TTU, TTS, dan Sikka, manajer program di NTT, klinisi di Posyandu &mdash; sistem yang Anda lihat adalah yang mereka minta, bukan yang kami bayangkan untuk mereka.</p>
+        </div>
       </div>
-
-      <div class="closing-mark">SahAIbat <span class="x">×</span> PERDHAKI</div>
     </div>
   </section>
+
+  <!-- ========== SLIDE 4: WHAT WE OFFER ========== -->
+  <section class="slide" data-slide="6">
+    <div class="slide-num">06 — WHAT WE OFFER</div>
+    <div class="problem-wrap">
+      <div>
+        <div class="eyebrow" data-en>Last-mile healthcare, in the kader&rsquo;s pocket</div>
+        <div class="eyebrow" data-id>Layanan kesehatan jalur akhir, di saku kader</div>
+        <h1 class="display" data-en>The gap is real.<br>So is <em>what we&rsquo;ve built</em> for it.</h1>
+        <h1 class="display" data-id>Kesenjangannya nyata.<br>Begitu juga <em>yang kami bangun</em> untuknya.</h1>
+        <p class="body-lg" data-en style="margin-top: 22px; max-width: 78ch;">A kader sees 30+ children in a Posyandu day. Paper KMS, a pen, and her memory. Severe wasting can hide in a single weight reading, and the folder on the shelf does not call the Puskesmas. So we put the system into her hand &mdash; one she already holds.</p>
+        <p class="body-lg" data-id style="margin-top: 22px; max-width: 78ch;">Seorang kader memeriksa 30+ anak dalam satu hari Posyandu. KMS kertas, pena, dan ingatannya. Wasting berat bisa tersembunyi dalam satu pengukuran &mdash; dan folder di rak tidak menelepon Puskesmas. Maka sistem itu kami letakkan di tangannya, di alat yang sudah ia pegang.</p>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">&lt; 1<span class="unit"> min</span></div>
+          <div class="stat-label" data-en>From kader&rsquo;s WhatsApp message to a structured clinical plan in plain Bahasa</div>
+          <div class="stat-label" data-id>Dari pesan WhatsApp kader hingga rencana klinis terstruktur dalam Bahasa</div>
+          <div class="stat-source" data-en>Mean response time</div>
+          <div class="stat-source" data-id>Waktu respon rata-rata</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6<span class="unit"> + 2</span></div>
+          <div class="stat-label" data-en>Modules live: growth, maternal, postpartum, newborn, TB, dengue &mdash; immunization &amp; mental health next</div>
+          <div class="stat-label" data-id>Modul aktif: pertumbuhan, ibu hamil, ibu nifas, bayi baru lahir, TB, DBD &mdash; imunisasi &amp; kesehatan jiwa berikutnya</div>
+          <div class="stat-source" data-en>In production</div>
+          <div class="stat-source" data-id>Dalam produksi</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">100<span class="unit">%</span></div>
+          <div class="stat-label" data-en>Offline-capable triage. Posyandu runs without a signal, syncs when it returns</div>
+          <div class="stat-label" data-id>Triase mampu offline. Posyandu berjalan tanpa sinyal, sinkron saat sinyal kembali</div>
+          <div class="stat-source" data-en>NTT, Maluku, Papua-tested</div>
+          <div class="stat-source" data-id>Diuji di NTT, Maluku, Papua</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">0<span class="unit"> Rp</span></div>
+          <div class="stat-label" data-en>Cost to the kader, the family, and the partnering NGO. Always.</div>
+          <div class="stat-label" data-id>Biaya untuk kader, keluarga, dan NGO mitra. Selalu nol rupiah.</div>
+          <div class="stat-source" data-en>Gratis &mdash; by design</div>
+          <div class="stat-source" data-id>Gratis &mdash; sesuai desainnya</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 5: WHAT WE BUILT ========== -->
+  <section class="slide" data-slide="7">
+    <div class="slide-num">07 — WHAT WE BUILT</div>
+    <div>
+      <div class="eyebrow" data-en>Three pillars, one mission</div>
+      <div class="eyebrow" data-id>Tiga pilar, satu misi</div>
+      <h1 class="display" data-en>One system, three<br>doors into care.</h1>
+      <h1 class="display" data-id>Satu sistem, tiga<br>pintu menuju layanan.</h1>
+      <p class="body-lg" data-en style="max-width: 70ch; margin-top: 16px;">Each pillar stands on its own. Together, they cover the kader, her workplace, and the family she serves.</p>
+      <p class="body-lg" data-id style="max-width: 70ch; margin-top: 16px;">Setiap pilar berdiri sendiri. Bersama, mereka menjangkau kader, tempat kerjanya, dan keluarga yang ia layani.</p>
+
+      <div class="pillars-grid">
+        <div class="pillar">
+          <div class="pillar-num">01</div>
+          <h3 data-en>Kader WhatsApp Decision Tool</h3>
+          <h3 data-id>Alat Bantu Keputusan WhatsApp Kader</h3>
+          <p data-en>A clinical companion in the kader&rsquo;s pocket. WhatsApp message, structured triage, plain-language plan back in under a minute.</p>
+          <p data-id>Pendamping klinis di saku kader. Pesan WhatsApp, triase terstruktur, rencana bahasa sederhana kembali dalam kurang dari satu menit.</p>
+          <span class="tag" data-en>Live · 6 modules</span>
+          <span class="tag" data-id>Aktif · 6 modul</span>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">02</div>
+          <h3 data-en>Offline Posyandu PWA</h3>
+          <h3 data-id>PWA Posyandu Offline</h3>
+          <p data-en>For mountains, islands, and dead zones. Full triage runs on the phone with no signal. Auto-syncs when the bars come back.</p>
+          <p data-id>Untuk pegunungan, pulau, dan area tanpa sinyal. Triase lengkap berjalan di ponsel tanpa sinyal. Sinkron otomatis saat sinyal kembali.</p>
+          <span class="tag" data-en>Live · Android + iOS</span>
+          <span class="tag" data-id>Aktif · Android + iOS</span>
+        </div>
+        <div class="pillar">
+          <div class="pillar-num">03</div>
+          <h3 data-en>Kasih &mdash; Rural Education Bot</h3>
+          <h3 data-id>Kasih &mdash; Bot Edukasi Pedesaan</h3>
+          <p data-en>A WhatsApp companion for families. Bahasa, low-literacy friendly, OTC-only, never replaces a clinician.</p>
+          <p data-id>Pendamping WhatsApp untuk keluarga. Bahasa, ramah literasi rendah, hanya OTC, tidak menggantikan klinisi.</p>
+          <span class="tag" data-en>Live · Pilot</span>
+          <span class="tag" data-id>Aktif · Pilot</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 6: KADER WHATSAPP DEEP DIVE ========== -->
+  <section class="slide" data-slide="8">
+    <div class="slide-num">08 — KADER WHATSAPP DECISION TOOL</div>
+    <div class="kader-deep">
+      <div class="phone-wrap">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="wa-header">
+              <div class="wa-avatar">S</div>
+              <div>
+                <div class="wa-name">SahAIbat</div>
+                <div class="wa-status" data-en>online</div>
+                <div class="wa-status" data-id>online</div>
+              </div>
+            </div>
+            <div class="wa-body">
+              <div class="msg out">Anak Putri, 22 bulan, P. BB 8.2 kg, TB 76 cm, LiLA 11.5 cm.</div>
+              <div class="msg in">
+                <b>RINGKASAN</b><br>
+                Risiko: <span class="urgent">TINGGI &mdash; SAM</span><br>
+                LiLA &lt; 11.5 cm + WHZ &lt; -3 SD<br>
+                <div class="sub">Buku KIA · WHO 2006</div>
+              </div>
+              <div class="msg in">
+                <b>LAKUKAN SEKARANG</b><br>
+                <span class="urgent">SEGERA ke Puskesmas. Jangan tunda.</span><br>
+                Bawa Buku KIA + foto pengukuran.
+              </div>
+              <div class="msg in">
+                <b>EDUKASI IBU</b><br>
+                Tetap menyusui. ASI + MP-ASI lokal. Catat berat anak setiap minggu.
+              </div>
+              <div class="msg out" data-en>Got it. Going to Puskesmas now.</div>
+              <div class="msg out" data-id>Baik. Berangkat sekarang.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="eyebrow" data-en>Pillar 01 — In depth</div>
+        <div class="eyebrow" data-id>Pilar 01 — Mendalam</div>
+        <h1 class="h1" data-en>The kader sends a WhatsApp.<br>The system does the rest.</h1>
+        <h1 class="h1" data-id>Kader mengirim WhatsApp.<br>Sistem menyelesaikan sisanya.</h1>
+
+        <div class="kader-feature-list">
+          <div class="feature">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </div>
+            <div class="feature-body">
+              <h5 data-en>Under one minute, end to end</h5>
+              <h5 data-id>Kurang dari satu menit, ujung ke ujung</h5>
+              <p data-en>One message in, one structured plan out. No waiting, no menus, no app to install.</p>
+              <p data-id>Satu pesan masuk, satu rencana terstruktur keluar. Tanpa menunggu, tanpa menu, tanpa aplikasi.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div class="feature-body">
+              <h5 data-en>Buku KIA &amp; WHO compliant</h5>
+              <h5 data-id>Sesuai Buku KIA &amp; WHO</h5>
+              <p data-en>Z-scores from monthly WHO 2006 tables. SAM/MAM thresholds match Permenkes. Every decision is explainable.</p>
+              <p data-id>Z-score dari tabel WHO 2006 bulanan. Ambang SAM/MAM sesuai Permenkes. Setiap keputusan dapat dijelaskan.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div class="feature-body">
+              <h5 data-en>Cross-kader memory</h5>
+              <h5 data-id>Memori lintas-kader</h5>
+              <p data-en>Any kader in your network can pick up any child&rsquo;s history. The child&rsquo;s record travels with the child.</p>
+              <p data-id>Kader manapun dalam jaringan Anda dapat melihat riwayat anak. Catatan anak mengikuti sang anak.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="feature-body">
+              <h5 data-en>NIK optional &mdash; nobody is excluded</h5>
+              <h5 data-id>NIK opsional &mdash; tidak ada yang terabaikan</h5>
+              <p data-en>Many rural children don&rsquo;t have NIK until their teens. We track them anyway, with safe duplicate matching.</p>
+              <p data-id>Banyak anak pedesaan tidak memiliki NIK hingga remaja. Kami tetap mendata mereka, dengan pencocokan duplikat yang aman.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 7: MODULES GRID ========== -->
+  <section class="slide" data-slide="9">
+    <div class="slide-num">09 — MODULES IN PRODUCTION</div>
+    <div class="modules-wrap">
+      <div>
+        <div class="eyebrow" data-en>What the kader can do today</div>
+        <div class="eyebrow" data-id>Yang dapat dilakukan kader hari ini</div>
+        <h1 class="h1" data-en>Six modules live. Two more on the way.</h1>
+        <h1 class="h1" data-id>Enam modul aktif. Dua lagi segera hadir.</h1>
+      </div>
+
+      <div class="modules-grid">
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v20M2 12h20M5 5l14 14M5 19l14-14"/></svg>
+          <h4 data-en>Child Growth · SAM/MAM</h4>
+          <h4 data-id>Pertumbuhan Anak · SAM/MAM</h4>
+          <p data-en>WHO z-scores 0&ndash;60 months. Severe wasting flagged in real time.</p>
+          <p data-id>Z-score WHO 0&ndash;60 bulan. Wasting parah ditandai langsung.</p>
+        </div>
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M6 22v-2a6 6 0 0112 0v2"/></svg>
+          <h4 data-en>Maternal · Antenatal</h4>
+          <h4 data-id>Maternal · Antenatal</h4>
+          <p data-en>Danger signs in pregnancy. Pre-eclampsia, bleeding, decreased movement.</p>
+          <p data-id>Tanda bahaya kehamilan. Pre-eklampsia, perdarahan, gerakan janin berkurang.</p>
+        </div>
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+          <h4 data-en>Postpartum (Ibu Nifas)</h4>
+          <h4 data-id>Pasca Persalinan (Ibu Nifas)</h4>
+          <p data-en>40-day window. Bleeding, infection, depression screening.</p>
+          <p data-id>Masa 40 hari. Perdarahan, infeksi, skrining depresi.</p>
+        </div>
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          <h4 data-en>Newborn (Bayi Baru Lahir)</h4>
+          <h4 data-id>Bayi Baru Lahir</h4>
+          <p data-en>First 28 days. Breathing, feeding, jaundice, hypothermia.</p>
+          <p data-id>28 hari pertama. Pernapasan, menyusu, kuning, hipotermia.</p>
+        </div>
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <h4 data-en>Tuberculosis (TB) Screening</h4>
+          <h4 data-id>Skrining Tuberkulosis (TB)</h4>
+          <p data-en>Symptom check, contact tracing, referral guidance for sputum tests.</p>
+          <p data-id>Periksa gejala, pelacakan kontak, panduan rujukan tes dahak.</p>
+        </div>
+        <div class="module">
+          <span class="module-tag live" data-en>Live</span>
+          <span class="module-tag live" data-id>Aktif</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"/><path d="M12 9v4M12 17h.01"/></svg>
+          <h4 data-en>Dengue (DBD) Triage</h4>
+          <h4 data-id>Triase Demam Berdarah (DBD)</h4>
+          <p data-en>Day-of-illness routing. Warning signs &rarr; immediate referral.</p>
+          <p data-id>Penjurusan hari ke-berapa sakit. Tanda bahaya &rarr; rujuk segera.</p>
+        </div>
+        <div class="module coming">
+          <span class="module-tag soon" data-en>Coming soon</span>
+          <span class="module-tag soon" data-id>Segera hadir</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg>
+          <h4 data-en>Child Immunization</h4>
+          <h4 data-id>Imunisasi Anak</h4>
+          <p data-en>IDAI schedule tracking. Zero-dose flag and catch-up reminders.</p>
+          <p data-id>Pelacakan jadwal IDAI. Tanda zero-dose dan pengingat susulan.</p>
+        </div>
+        <div class="module coming">
+          <span class="module-tag soon" data-en>Coming soon</span>
+          <span class="module-tag soon" data-id>Segera hadir</span>
+          <svg class="module-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7 7-7z"/></svg>
+          <h4 data-en>Mental Health (PHQ-2 / GAD-7)</h4>
+          <h4 data-id>Kesehatan Jiwa (PHQ-2 / GAD-7)</h4>
+          <p data-en>Postnatal depression and anxiety screening for mothers and kaders.</p>
+          <p data-id>Skrining depresi pascapersalinan dan kecemasan untuk ibu dan kader.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SLIDE 8: INTERACTIVE DEMO ========== -->
+  <section class="slide" data-slide="10">
+    <div class="slide-num">10 — SEE IT WORK</div>
+    <div class="demo-wrap">
+      <div class="demo-header">
+        <div>
+          <div class="eyebrow" data-en>Interactive · Click through</div>
+          <div class="eyebrow" data-id>Interaktif · Klik untuk maju</div>
+          <h1 class="h1" data-en>Don&rsquo;t take our word for it.<br>Watch it run.</h1>
+          <h1 class="h1" data-id>Tidak perlu percaya kami.<br>Saksikan langsung.</h1>
+        </div>
+        <div class="demo-tabs" id="demoTabs">
+          <button class="demo-tab active" data-tab="wa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <span data-en>Kader WhatsApp</span>
+            <span data-id>Kader WhatsApp</span>
+          </button>
+          <button class="demo-tab" data-tab="pwa">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+            <span data-en>Offline PWA</span>
+            <span data-id>PWA Offline</span>
+          </button>
+          <button class="demo-tab" data-tab="kasih">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0016.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 002 8.5c0 2.29 1.51 4.04 3 5.5l7 7 7-7z"/></svg>
+            <span data-en>Kasih · Family bot</span>
+            <span data-id>Kasih · Bot keluarga</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <!-- WHATSAPP DEMO -->
+        <div class="demo-panel active" data-panel="wa">
+          <div class="demo-device">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="wa-header">
+                  <div class="wa-avatar">S</div>
+                  <div>
+                    <div class="wa-name">SahAIbat</div>
+                    <div class="wa-status" data-en>online</div>
+                    <div class="wa-status" data-id>online</div>
+                  </div>
+                </div>
+                <div class="wa-body" id="waBody"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-controls">
+            <div class="demo-step-info">
+              <div class="step-label" data-en>Step</div>
+              <div class="step-label" data-id>Langkah</div>
+              <div class="step-counter"><span id="waStep">1</span> / <span id="waTotal">5</span></div>
+            </div>
+            <div class="demo-narration" id="waNarr"></div>
+            <div class="demo-buttons">
+              <button class="dbtn dbtn-ghost" id="waReset" data-en>Reset</button>
+              <button class="dbtn dbtn-ghost" id="waResetId" data-id>Ulang</button>
+              <button class="dbtn dbtn-primary" id="waNext" data-en>Next step &rarr;</button>
+              <button class="dbtn dbtn-primary" id="waNextId" data-id>Langkah berikutnya &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PWA DEMO -->
+        <div class="demo-panel" data-panel="pwa">
+          <div class="demo-device">
+            <div class="pwa-frame">
+              <div class="pwa-statusbar">
+                <span class="pwa-time">14:32</span>
+                <span class="pwa-signal" id="pwaSignal">
+                  <span class="bar b1"></span><span class="bar b2"></span><span class="bar b3"></span><span class="bar b4"></span>
+                </span>
+              </div>
+              <div class="pwa-app">
+                <div class="pwa-banner" id="pwaBanner">
+                  <div class="pwa-banner-icon">&#128246;</div>
+                  <div>
+                    <div class="pwa-banner-title" data-en>Connected</div>
+                    <div class="pwa-banner-title" data-id>Terhubung</div>
+                    <div class="pwa-banner-sub" data-en>Auto-sync on</div>
+                    <div class="pwa-banner-sub" data-id>Sinkron otomatis aktif</div>
+                  </div>
+                </div>
+                <div class="pwa-screen" id="pwaScreen"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-controls">
+            <div class="demo-step-info">
+              <div class="step-label" data-en>Step</div>
+              <div class="step-label" data-id>Langkah</div>
+              <div class="step-counter"><span id="pwaStep">1</span> / <span id="pwaTotal">6</span></div>
+            </div>
+            <div class="demo-narration" id="pwaNarr"></div>
+            <div class="demo-buttons">
+              <button class="dbtn dbtn-ghost" id="pwaReset" data-en>Reset</button>
+              <button class="dbtn dbtn-ghost" id="pwaResetId" data-id>Ulang</button>
+              <button class="dbtn dbtn-primary" id="pwaNext" data-en>Next step &rarr;</button>
+              <button class="dbtn dbtn-primary" id="pwaNextId" data-id>Langkah berikutnya &rarr;</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- KASIH DEMO -->
+        <div class="demo-panel" data-panel="kasih">
+          <div class="demo-device">
+            <div class="phone">
+              <div class="phone-screen">
+                <div class="wa-header" style="background: #5e3a8b;">
+                  <div class="wa-avatar" style="background: #f4d4a3; color: #5e3a8b;">K</div>
+                  <div>
+                    <div class="wa-name">Kasih</div>
+                    <div class="wa-status" data-en>here for your family</div>
+                    <div class="wa-status" data-id>untuk keluarga Anda</div>
+                  </div>
+                </div>
+                <div class="wa-body" id="kasihBody"></div>
+              </div>
+            </div>
+          </div>
+          <div class="demo-controls">
+            <div class="demo-step-info">
+              <div class="step-label" data-en>Step</div>
+              <div class="step-label" data-id>Langkah</div>
+              <div class="step-counter"><span id="kasihStep">1</span> / <span id="kasihTotal">5</span></div>
+            </div>
+            <div class="demo-narration" id="kasihNarr"></div>
+            <div class="demo-buttons">
+              <button class="dbtn dbtn-ghost" id="kasihReset" data-en>Reset</button>
+              <button class="dbtn dbtn-ghost" id="kasihResetId" data-id>Ulang</button>
+              <button class="dbtn dbtn-primary" id="kasihNext" data-en>Next step &rarr;</button>
+              <button class="dbtn dbtn-primary" id="kasihNextId" data-id>Langkah berikutnya &rarr;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 8: OFFLINE PWA ========== -->
+  <section class="slide" data-slide="11">
+    <div class="slide-num">11 — OFFLINE PWA</div>
+    <div class="offline-grid">
+      <div>
+        <div class="eyebrow" data-en>Pillar 02 — When the signal disappears</div>
+        <div class="eyebrow" data-id>Pilar 02 — Ketika sinyal hilang</div>
+        <h1 class="h1" data-en>The kader keeps working,<br>even when the network doesn&rsquo;t.</h1>
+        <h1 class="h1" data-id>Kader tetap bekerja,<br>meski jaringan tidak.</h1>
+        <p class="body-lg" data-en style="margin-top: 16px;">In the highlands of NTT, in the islands of Maluku, in the valleys of Papua &mdash; the network drops. The Posyandu does not. Our PWA runs the full triage on the device, queues every record, and syncs the moment a single bar of signal returns.</p>
+        <p class="body-lg" data-id style="margin-top: 16px;">Di dataran tinggi NTT, di kepulauan Maluku, di lembah Papua &mdash; jaringan menghilang. Posyandu tidak. PWA kami menjalankan triase lengkap di perangkat, mengantrekan setiap catatan, dan sinkron begitu satu bar sinyal kembali.</p>
+
+        <ul class="offline-list">
+          <li>
+            <div class="check">&#10003;</div>
+            <div>
+              <h6 data-en>Full WHO z-score engine on-device</h6>
+              <h6 data-id>Mesin z-score WHO penuh di perangkat</h6>
+              <p data-en>The same clinical logic as online. No degraded mode, no missed flags.</p>
+              <p data-id>Logika klinis sama dengan online. Tidak ada mode terdegradasi, tidak ada tanda yang terlewat.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">&#10003;</div>
+            <div>
+              <h6 data-en>Background sync that just works</h6>
+              <h6 data-id>Sinkronisasi latar belakang yang andal</h6>
+              <p data-en>Android: automatic via Background Sync API. iOS: one-tap manual sync. Either way, no data is lost.</p>
+              <p data-id>Android: otomatis via Background Sync API. iOS: sinkron manual satu sentuhan. Tidak ada data yang hilang.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">&#10003;</div>
+            <div>
+              <h6 data-en>Installs from a link &mdash; no Play Store needed</h6>
+              <h6 data-id>Diinstal dari tautan &mdash; tanpa Play Store</h6>
+              <p data-en>Open the link, &ldquo;Add to Home Screen&rdquo;, done. Works on any phone running modern Chrome or Safari.</p>
+              <p data-id>Buka tautan, &ldquo;Tambahkan ke Layar Utama&rdquo;, selesai. Bekerja di setiap ponsel dengan Chrome atau Safari modern.</p>
+            </div>
+          </li>
+          <li>
+            <div class="check">&#10003;</div>
+            <div>
+              <h6 data-en>Phone-only auth &mdash; no email, no OTP fees</h6>
+              <h6 data-id>Login dengan nomor saja &mdash; tanpa email, tanpa biaya OTP</h6>
+              <p data-en>The kader signs in with her phone number. That&rsquo;s it. We don&rsquo;t make her invent a password.</p>
+              <p data-id>Kader masuk dengan nomor ponselnya. Itu saja. Kami tidak meminta ia membuat kata sandi baru.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="offline-visual">
+        <div class="signal-rings">
+          <div class="ring"></div>
+          <div class="ring"></div>
+          <div class="ring"></div>
+        </div>
+        <div class="device-stack">
+          <div class="offline-badge">
+            <div class="icon">&#9888;</div>
+            <div class="label" data-en>Device · Posyandu</div>
+            <div class="label" data-id>Perangkat · Posyandu</div>
+            <div class="status" data-en>Working offline</div>
+            <div class="status" data-id>Bekerja offline</div>
+          </div>
+          <div class="sync-arrow">&darr;</div>
+          <div class="cloud-badge">
+            <div class="label" data-en>When signal returns</div>
+            <div class="label" data-id>Saat sinyal kembali</div>
+            <div class="text" data-en>Auto-sync to cloud</div>
+            <div class="text" data-id>Sinkron otomatis ke cloud</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 9: KASIH (RURAL CHATBOT) ========== -->
+  <section class="slide" data-slide="12">
+    <div class="slide-num">12 — KASIH · RURAL EDUCATION BOT</div>
+    <div class="kasih-grid">
+      <div>
+        <div class="eyebrow" data-en>Pillar 03 — For families</div>
+        <div class="eyebrow" data-id>Pilar 03 — Untuk keluarga</div>
+        <h1 class="h1" data-en>A patient companion<br>for the family at home.</h1>
+        <h1 class="h1" data-id>Pendamping yang sabar<br>untuk keluarga di rumah.</h1>
+        <p class="body-lg" data-en style="margin-top: 14px;">Not every health question needs to wait for the next Posyandu day. Kasih answers in Bahasa, in plain words, with patience. She knows when to send someone to a clinician.</p>
+        <p class="body-lg" data-id style="margin-top: 14px;">Tidak setiap pertanyaan kesehatan harus menunggu Posyandu berikutnya. Kasih menjawab dalam Bahasa, dengan kata-kata sederhana, dengan sabar. Ia tahu kapan harus mengarahkan ke klinisi.</p>
+
+        <div class="kasih-name-card">
+          <div class="word-mark">Kasih</div>
+          <div class="meaning" data-en>Love · Compassion · Affection</div>
+          <div class="meaning" data-id>Cinta · Belas Kasih · Sayang</div>
+          <div class="desc" data-en>&ldquo;A name a grandmother would say. A name a child would trust.&rdquo;</div>
+          <div class="desc" data-id>&ldquo;Nama yang akan diucapkan seorang nenek. Nama yang akan dipercaya seorang anak.&rdquo;</div>
+        </div>
+      </div>
+
+      <div class="kasih-features">
+        <div class="kasih-card">
+          <h5 data-en>Bahasa-first, low-literacy friendly</h5>
+          <h5 data-id>Bahasa Indonesia, ramah literasi rendah</h5>
+          <p data-en>Short sentences. Simple words. Voice-note friendly. No medical jargon, no English fallback.</p>
+          <p data-id>Kalimat pendek. Kata sederhana. Cocok pesan suara. Tanpa istilah medis, tanpa Bahasa Inggris.</p>
+        </div>
+        <div class="kasih-card">
+          <h5 data-en>OTC-only by design</h5>
+          <h5 data-id>Hanya OTC, sesuai desainnya</h5>
+          <p data-en>Kasih never names a prescription drug. Never gives a dose. For anything serious, she points home to the kader, the bidan, or the Puskesmas.</p>
+          <p data-id>Kasih tidak pernah menyebut obat resep. Tidak pernah memberi dosis. Untuk hal serius, ia mengarahkan ke kader, bidan, atau Puskesmas.</p>
+        </div>
+        <div class="kasih-card">
+          <h5 data-en>The kader stays in the loop</h5>
+          <h5 data-id>Kader tetap mengetahui</h5>
+          <p data-en>When a family in her area asks Kasih something serious, the kader sees the signal &mdash; without violating privacy.</p>
+          <p data-id>Ketika keluarga di wilayahnya menanyakan sesuatu yang serius, kader melihat sinyalnya &mdash; tanpa melanggar privasi.</p>
+        </div>
+        <div class="kasih-card">
+          <h5 data-en>Free for the family, always</h5>
+          <h5 data-id>Gratis untuk keluarga, selamanya</h5>
+          <p data-en>WhatsApp inbound is free under Meta&rsquo;s policy. The family pays nothing. We don&rsquo;t want them to.</p>
+          <p data-id>Pesan masuk WhatsApp gratis menurut kebijakan Meta. Keluarga tidak membayar apa pun. Kami tidak menginginkannya.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 10: ARCHITECTURE / SAFETY ========== -->
+  <section class="slide" data-slide="13">
+    <div class="slide-num">13 — HOW IT WORKS · SAFETY</div>
+    <div class="arch-wrap">
+      <div>
+        <div class="eyebrow" data-en>Architecture · Clinical safety</div>
+        <div class="eyebrow" data-id>Arsitektur · Keselamatan klinis</div>
+        <h1 class="h1" data-en>Rules first.<br><em style="color: var(--gold-deep); font-style: italic;">AI second.</em> Always.</h1>
+        <h1 class="h1" data-id>Aturan dulu.<br><em style="color: var(--gold-deep); font-style: italic;">AI kemudian.</em> Selalu.</h1>
+      </div>
+
+      <div>
+        <div class="arch-flow">
+          <div class="arch-node">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+            <h5 data-en>WhatsApp message</h5>
+            <h5 data-id>Pesan WhatsApp</h5>
+            <p data-en>Kader sends structured snapshot</p>
+            <p data-id>Kader kirim ringkasan terstruktur</p>
+          </div>
+          <div class="arch-arrow">&rarr;</div>
+          <div class="arch-node center">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2zM22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+            <h5 data-en>Deterministic engine</h5>
+            <h5 data-id>Mesin deterministik</h5>
+            <p data-en>WHO + Buku KIA rules. Source of truth.</p>
+            <p data-id>Aturan WHO + Buku KIA. Sumber kebenaran.</p>
+          </div>
+          <div class="arch-arrow">&rarr;</div>
+          <div class="arch-node">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <h5 data-en>Plain-language plan</h5>
+            <h5 data-id>Rencana bahasa sederhana</h5>
+            <p data-en>AI rephrases for the kader, never overrules.</p>
+            <p data-id>AI menulis ulang untuk kader, tidak pernah membatalkan.</p>
+          </div>
+        </div>
+
+        <div class="safety-row" style="margin-top: 30px;">
+          <div class="safety">
+            <h6 data-en>AI cannot diagnose</h6>
+            <h6 data-id>AI tidak boleh mendiagnosis</h6>
+            <p data-en>Hard guardrail. AI never names a disease, never sets a dose, never overrides the rules engine.</p>
+            <p data-id>Pagar pengaman keras. AI tidak pernah menyebut penyakit, tidak menentukan dosis, tidak membatalkan mesin aturan.</p>
+          </div>
+          <div class="safety">
+            <h6 data-en>Every triage is auditable</h6>
+            <h6 data-id>Setiap triase dapat diaudit</h6>
+            <p data-en>Every Q&amp;A, every flag, every recommendation is stored. Reviewers see the full chain.</p>
+            <p data-id>Setiap Q&amp;A, setiap tanda, setiap rekomendasi tersimpan. Peninjau melihat seluruh rantai.</p>
+          </div>
+          <div class="safety">
+            <h6 data-en>Data stays in Indonesia</h6>
+            <h6 data-id>Data tetap di Indonesia</h6>
+            <p data-en>Supabase hosted on AWS Jakarta. Aligned with UU PDP and SatuSehat-ready for FHIR exchange.</p>
+            <p data-id>Supabase di AWS Jakarta. Selaras dengan UU PDP, siap-SatuSehat untuk pertukaran FHIR.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 11: SUSTAINABILITY ========== -->
+  <section class="slide" data-slide="14">
+    <div class="slide-num">14 — BUILT TO LAST</div>
+    <div class="sustain-grid">
+      <div>
+        <div class="eyebrow" data-en>The thing nobody asks until it&rsquo;s too late</div>
+        <div class="eyebrow" data-id>Hal yang sering tidak ditanyakan sampai terlambat</div>
+        <h1 class="h1" data-en>What happens when<br>the grant ends?</h1>
+        <h1 class="h1" data-id>Apa yang terjadi ketika<br>hibahnya selesai?</h1>
+        <p class="body-lg" data-en style="margin-top: 16px;">Most digital health pilots collapse the day funding stops. Servers turn off. Logins break. Years of data orphan. We refused to build that kind of system.</p>
+        <p class="body-lg" data-id style="margin-top: 16px;">Kebanyakan pilot kesehatan digital runtuh hari pendanaan berhenti. Server mati. Login rusak. Bertahun-tahun data jadi yatim. Kami menolak membangun sistem seperti itu.</p>
+
+        <div class="sustain-points">
+          <div class="sustain-point">
+            <div class="sp-num">i.</div>
+            <div>
+              <h6 data-en>WhatsApp inbound is free</h6>
+              <h6 data-id>Pesan masuk WhatsApp gratis</h6>
+              <p data-en>Under Meta&rsquo;s user-initiated policy, every kader message costs zero. The most expensive part of most platforms is free for ours.</p>
+              <p data-id>Menurut kebijakan Meta untuk pesan inisiatif pengguna, setiap pesan kader bernilai nol rupiah. Komponen termahal di kebanyakan platform, gratis di kami.</p>
+            </div>
+          </div>
+          <div class="sustain-point">
+            <div class="sp-num">ii.</div>
+            <div>
+              <h6 data-en>Posyandu triage uses zero AI calls</h6>
+              <h6 data-id>Triase Posyandu nol panggilan AI</h6>
+              <p data-en>The clinical engine is rules. AI is only used to rephrase. Even at 100,000 kaders, the marginal cost stays trivial.</p>
+              <p data-id>Mesin klinis berbasis aturan. AI hanya digunakan untuk menulis ulang. Bahkan dengan 100.000 kader, biaya marginal tetap kecil.</p>
+            </div>
+          </div>
+          <div class="sustain-point">
+            <div class="sp-num">iii.</div>
+            <div>
+              <h6 data-en>The infrastructure scales sideways, not up</h6>
+              <h6 data-id>Infrastruktur tumbuh menyamping, bukan naik</h6>
+              <p data-en>Vercel + Supabase autoscale. At 3,000+ kaders, we migrate to 360dialog and cut costs further. We don&rsquo;t need new servers, ever.</p>
+              <p data-id>Vercel + Supabase otomatis menskala. Pada 3.000+ kader, kami pindah ke 360dialog dan biaya turun lagi. Kami tidak pernah butuh server baru.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-viz">
+        <h5 data-en>Monthly running cost · 10,000 active kaders</h5>
+        <h5 data-id>Biaya bulanan · 10.000 kader aktif</h5>
+
+        <div class="cost-bar-row">
+          <div class="cost-label" data-en>Hosting (Vercel)</div>
+          <div class="cost-label" data-id>Hosting (Vercel)</div>
+          <div class="cost-bar"><div class="cost-bar-fill" style="width: 35%"></div></div>
+          <div class="cost-value">~ $90</div>
+        </div>
+        <div class="cost-bar-row">
+          <div class="cost-label" data-en>Database (Supabase)</div>
+          <div class="cost-label" data-id>Database (Supabase)</div>
+          <div class="cost-bar"><div class="cost-bar-fill" style="width: 28%"></div></div>
+          <div class="cost-value">~ $70</div>
+        </div>
+        <div class="cost-bar-row">
+          <div class="cost-label" data-en>WhatsApp template</div>
+          <div class="cost-label" data-id>Template WhatsApp</div>
+          <div class="cost-bar"><div class="cost-bar-fill gold" style="width: 15%"></div></div>
+          <div class="cost-value">~ $40</div>
+        </div>
+        <div class="cost-bar-row">
+          <div class="cost-label" data-en>AI (Claude Haiku)</div>
+          <div class="cost-label" data-id>AI (Claude Haiku)</div>
+          <div class="cost-bar"><div class="cost-bar-fill gold" style="width: 22%"></div></div>
+          <div class="cost-value">~ $60</div>
+        </div>
+
+        <div style="border-top: 1px solid var(--line); padding-top: 16px; margin-top: 6px; display: flex; justify-content: space-between; align-items: baseline;">
+          <div style="font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--teal-deep);" data-en>Total / month</div>
+          <div style="font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--teal-deep);" data-id>Total / bulan</div>
+          <div style="font-family: var(--serif); font-weight: 600; font-size: 26px; color: var(--gold-deep);">~ $260</div>
+        </div>
+
+        <div class="cost-note" data-en>That&rsquo;s under 3 cents per kader, per month. Sustainable on a small recurring grant, a service line, or a partner&rsquo;s programmatic budget.</div>
+        <div class="cost-note" data-id>Itu kurang dari Rp 400 per kader per bulan. Lestari dengan hibah berulang kecil, lini layanan, atau anggaran program mitra.</div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SLIDE 13: HOSPITAL / CLINIC INTEGRATION ========== -->
+  <section class="slide" data-slide="15">
+    <div class="slide-num">15 — INTEGRATION</div>
+    <div class="integ-wrap">
+      <div class="integ-intro">
+        <div class="eyebrow" data-en>We fit into the system you already run</div>
+        <div class="eyebrow" data-id>Kami menyatu dengan sistem yang sudah Anda jalankan</div>
+        <h1 class="h1" data-en>Your hospitals.<br>Your clinics.<br><em style="color: var(--gold-deep); font-style: italic;">Already connected.</em></h1>
+        <h1 class="h1" data-id>Rumah sakit Anda.<br>Klinik Anda.<br><em style="color: var(--gold-deep); font-style: italic;">Sudah terhubung.</em></h1>
+        <p class="body-lg" data-en style="margin-top: 18px;">SahAIbat is not a walled garden. It is a layer that talks to the systems your hospitals and clinics already use &mdash; SIMRS, EMR, the paper logbook, the WhatsApp group, the SatuSehat portal. We meet you where you are.</p>
+        <p class="body-lg" data-id style="margin-top: 18px;">SahAIbat bukan sistem tertutup. Ia adalah lapisan yang berbicara dengan sistem yang sudah dipakai rumah sakit dan klinik Anda &mdash; SIMRS, EMR, buku catatan, grup WhatsApp, portal SatuSehat. Kami menemui Anda di tempat Anda berada.</p>
+      </div>
+
+      <div class="integ-flow">
+        <div class="integ-node integ-village">
+          <div class="integ-node-label" data-en>VILLAGE</div>
+          <div class="integ-node-label" data-id>DESA</div>
+          <div class="integ-node-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V11l7-7 7 7v10M9 21v-6h6v6"/></svg>
+          </div>
+          <h5 data-en>Kader at Posyandu</h5>
+          <h5 data-id>Kader di Posyandu</h5>
+          <p data-en>WhatsApp triage or offline PWA</p>
+          <p data-id>Triase WhatsApp atau PWA offline</p>
+        </div>
+
+        <div class="integ-arrow"><span class="arrow-label" data-en>Referral</span><span class="arrow-label" data-id>Rujukan</span></div>
+
+        <div class="integ-node integ-puskesmas">
+          <div class="integ-node-label" data-en>SUB-DISTRICT</div>
+          <div class="integ-node-label" data-id>KECAMATAN</div>
+          <div class="integ-node-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 9h-4V5H9v4H5v6h4v4h6v-4h4z"/></svg>
+          </div>
+          <h5 data-en>Puskesmas</h5>
+          <h5 data-id>Puskesmas</h5>
+          <p data-en>Referral letter, evidence chain</p>
+          <p data-id>Surat rujukan, rantai bukti</p>
+        </div>
+
+        <div class="integ-arrow"><span class="arrow-label" data-en>FHIR · HL7</span><span class="arrow-label" data-id>FHIR · HL7</span></div>
+
+        <div class="integ-node integ-hospital">
+          <div class="integ-node-label" data-en>YOUR NETWORK</div>
+          <div class="integ-node-label" data-id>JARINGAN ANDA</div>
+          <div class="integ-node-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M5 5l3 3M16 16l3 3M2 12h4M18 12h4M5 19l3-3M16 8l3-3"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <h5 data-en>Hospitals &amp; Clinics</h5>
+          <h5 data-id>Rumah Sakit &amp; Klinik</h5>
+          <p data-en>SIMRS / EMR receives the case</p>
+          <p data-id>SIMRS / EMR menerima kasus</p>
+        </div>
+
+        <div class="integ-arrow integ-arrow-back"><span class="arrow-label" data-en>Outcome &mdash; closes the loop</span><span class="arrow-label" data-id>Hasil &mdash; lingkar tertutup</span></div>
+      </div>
+
+      <div class="integ-grid">
+        <div class="integ-card">
+          <div class="integ-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          </div>
+          <h5 data-en>SatuSehat &amp; FHIR-ready</h5>
+          <h5 data-id>Siap-SatuSehat &amp; FHIR</h5>
+          <p data-en>Every triage emits a FHIR-compatible record. Plug into SatuSehat or any FHIR-speaking EMR without rebuilding anything on your side.</p>
+          <p data-id>Setiap triase menghasilkan catatan kompatibel FHIR. Hubungkan ke SatuSehat atau EMR berbasis FHIR tanpa membangun ulang apa pun di sisi Anda.</p>
+        </div>
+        <div class="integ-card">
+          <div class="integ-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+          </div>
+          <h5 data-en>SIMRS / EMR adapters</h5>
+          <h5 data-id>Adapter SIMRS / EMR</h5>
+          <p data-en>Whatever your hospitals run &mdash; commercial SIMRS, custom EMR, even paper-and-Excel &mdash; we build a thin adapter so referrals land where your staff already look.</p>
+          <p data-id>Apapun sistem yang dipakai rumah sakit Anda &mdash; SIMRS komersial, EMR kustom, bahkan kertas dan Excel &mdash; kami buatkan adapter tipis agar rujukan masuk ke tempat staf Anda biasa melihat.</p>
+        </div>
+        <div class="integ-card">
+          <div class="integ-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><polyline points="22 4 12 14.01 9 11.01"/><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/></svg>
+          </div>
+          <h5 data-en>Two-way handoff</h5>
+          <h5 data-id>Serah terima dua arah</h5>
+          <p data-en>The kader knows when the child arrived at the hospital. The hospital knows the village context the case came from. Closure is the missing piece &mdash; we deliver it.</p>
+          <p data-id>Kader tahu kapan anak tiba di rumah sakit. Rumah sakit tahu konteks desa asal kasus. Penutupan adalah bagian yang hilang &mdash; kami menyediakannya.</p>
+        </div>
+        <div class="integ-card">
+          <div class="integ-card-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          </div>
+          <h5 data-en>Data sovereignty &mdash; yours</h5>
+          <h5 data-id>Kedaulatan data &mdash; milik Anda</h5>
+          <p data-en>All data hosted in AWS Jakarta, aligned with UU PDP. You own your slice. Full export within five days, any time you ask.</p>
+          <p data-id>Seluruh data di AWS Jakarta, selaras dengan UU PDP. Anda memiliki bagian Anda. Ekspor penuh dalam lima hari, kapan pun Anda minta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 12: ROADMAP ========== -->
+  <section class="slide" data-slide="16">
+    <div class="slide-num">16 — THE PATH TOGETHER</div>
+    <div class="roadmap">
+      <div>
+        <div class="eyebrow" data-en>How we walk forward, side by side</div>
+        <div class="eyebrow" data-id>Bagaimana kami melangkah bersama</div>
+        <h1 class="h1" data-en>Use it as you wish.<br>We&rsquo;ll fuel the mission together.</h1>
+        <h1 class="h1" data-id>Gunakan sesuka Anda.<br>Kami menjaga bahan bakarnya bersama.</h1>
+      </div>
+
+      <div class="timeline">
+        <div class="phase">
+          <div class="phase-dot">i</div>
+          <div class="phase-tag" data-en>Today &mdash; whenever you&rsquo;re ready</div>
+          <div class="phase-tag" data-id>Hari ini &mdash; kapan pun Anda siap</div>
+          <h4 data-en>Use it. As much, as little, as you wish.</h4>
+          <h4 data-id>Gunakan saja. Sebanyak atau seperlunya.</h4>
+          <p data-en>One kader, one diocese, or your full network &mdash; we onboard at your pace, with no contract, no time limit, and no fee. SahAIbat is gratis, today and tomorrow.</p>
+          <p data-id>Satu kader, satu keuskupan, atau seluruh jaringan Anda &mdash; kami onboard sesuai ritme Anda, tanpa kontrak, tanpa batas waktu, tanpa biaya. SahAIbat selalu gratis, hari ini dan seterusnya.</p>
+          <div class="phase-tags">
+            <span class="pt" data-en>No contract</span>
+            <span class="pt" data-id>Tanpa kontrak</span>
+            <span class="pt" data-en>No time limit</span>
+            <span class="pt" data-id>Tanpa batas waktu</span>
+            <span class="pt" data-en>Always free</span>
+            <span class="pt" data-id>Selalu gratis</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-dot">ii</div>
+          <div class="phase-tag" data-en>In parallel</div>
+          <div class="phase-tag" data-id>Berjalan paralel</div>
+          <h4 data-en>We chase fuel for the mission</h4>
+          <h4 data-id>Kami mencari bahan bakar untuk misi</h4>
+          <p data-en>While you use the platform, we work on grants &mdash; USAID DIV, Gates, Grand Challenges Canada, Google.org. Every funding application names your network as part of the evidence. The more lives we touch together, the stronger the case.</p>
+          <p data-id>Sementara Anda memakai platform, kami mengejar hibah &mdash; USAID DIV, Gates, Grand Challenges Canada, Google.org. Setiap aplikasi pendanaan menyebut jaringan Anda sebagai bagian dari bukti. Semakin banyak kehidupan yang kami sentuh bersama, semakin kuat kasusnya.</p>
+          <div class="phase-tags">
+            <span class="pt">USAID DIV</span>
+            <span class="pt">Gates Foundation</span>
+            <span class="pt">Grand Challenges</span>
+            <span class="pt">Google.org</span>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-dot">iii</div>
+          <div class="phase-tag" data-en>When the funding lands</div>
+          <div class="phase-tag" data-id>Ketika pendanaan tiba</div>
+          <h4 data-en>We scale together &mdash; and into SatuSehat</h4>
+          <h4 data-id>Kami skala bersama &mdash; dan masuk SatuSehat</h4>
+          <p data-en>Funded scale-up means dedicated engineering for your priorities, deeper kader training, immunization &amp; mental health rollouts, and SatuSehat (FHIR) integration so the data flows end-to-end &mdash; village to Puskesmas to Kemenkes.</p>
+          <p data-id>Skala-up dengan pendanaan berarti rekayasa khusus untuk prioritas Anda, pelatihan kader yang lebih dalam, peluncuran modul imunisasi &amp; kesehatan jiwa, dan integrasi SatuSehat (FHIR) agar data mengalir penuh &mdash; desa ke Puskesmas ke Kemenkes.</p>
+          <div class="phase-tags">
+            <span class="pt" data-en>National scale</span>
+            <span class="pt" data-id>Skala nasional</span>
+            <span class="pt">SatuSehat FHIR</span>
+            <span class="pt" data-en>Kemenkes MoU</span>
+            <span class="pt" data-id>MoU Kemenkes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SLIDE 17: Q&A — HOW & WHY NGOs ========== -->
+  <section class="slide" data-slide="17">
+    <div class="slide-num">17 — Q &amp; A · ONE</div>
+    <div class="qa-wrap">
+      <div class="qa-question">
+        <div class="qa-mark">Q</div>
+        <div class="qa-question-text">
+          <div class="qa-eyebrow" data-en>The first question we always hear</div>
+          <div class="qa-eyebrow" data-id>Pertanyaan pertama yang selalu kami dengar</div>
+          <h2 class="qa-text" data-en>How does SahAIbat work,<br>and <em>why partner with NGOs?</em></h2>
+          <h2 class="qa-text" data-id>Bagaimana SahAIbat bekerja,<br>dan <em>mengapa bermitra dengan NGO?</em></h2>
+        </div>
+      </div>
+
+      <div class="qa-answer">
+        <div class="qa-mark qa-mark-a">A</div>
+        <div class="qa-answer-body">
+          <p class="qa-lead" data-en>Two answers. They&rsquo;re connected.</p>
+          <p class="qa-lead" data-id>Dua jawaban. Keduanya terkait.</p>
+
+          <div class="qa-blocks">
+            <div class="qa-block">
+              <h5 data-en>How it works</h5>
+              <h5 data-id>Cara kerjanya</h5>
+              <p data-en>A kader sends a structured WhatsApp message &mdash; child, age, weight, height, MUAC. A deterministic engine using <strong>WHO 2006 standards and Buku KIA</strong> calculates z-scores, flags severe wasting, and decides the action. AI rephrases the plan into plain Bahasa for the kader. End-to-end: under one minute. Offline-capable when signal disappears.</p>
+              <p data-id>Kader mengirim pesan WhatsApp terstruktur &mdash; anak, usia, BB, TB, LiLA. Mesin deterministik dengan <strong>standar WHO 2006 dan Buku KIA</strong> menghitung z-score, menandai wasting parah, dan menentukan tindakan. AI menulis ulang rencana itu dalam Bahasa sederhana. Ujung ke ujung: kurang dari satu menit. Mampu offline saat sinyal hilang.</p>
+            </div>
+            <div class="qa-block">
+              <h5 data-en>Why we partner with NGOs</h5>
+              <h5 data-id>Mengapa kami bermitra dengan NGO</h5>
+              <p data-en>Because <strong>kaders trust the people who already walk into their villages</strong>. NGOs have spent decades building that trust. They know the kepala desa, the bidan, the family with three under-fives. We are technologists; we don&rsquo;t pretend to be community organisers. We favour collaboration over competition &mdash; working alongside NGOs, not replacing them.</p>
+              <p data-id>Karena <strong>kader mempercayai orang-orang yang sudah masuk ke desa mereka</strong>. NGO telah puluhan tahun membangun kepercayaan itu. Mereka mengenal kepala desa, bidan, keluarga dengan tiga balita. Kami teknolog; kami tidak berpura-pura menjadi penggerak komunitas. Kami lebih memilih kolaborasi daripada kompetisi &mdash; bekerja bersama NGO, bukan menggantikannya.</p>
+            </div>
+            <div class="qa-block qa-block-wide">
+              <h5 data-en>What that division of labour looks like</h5>
+              <h5 data-id>Bagaimana pembagian kerja itu</h5>
+              <p data-en>The NGO owns the field &mdash; kader recruitment, training, community trust, programme accountability. We own the platform &mdash; clinical engine, WhatsApp infrastructure, offline sync, security, ongoing engineering. <strong>Together we apply for grants and co-fund deployments.</strong> Each partner names the other in funding applications. Evidence compounds across regions; nobody walks alone.</p>
+              <p data-id>NGO memegang lapangan &mdash; rekrutmen kader, pelatihan, kepercayaan komunitas, akuntabilitas program. Kami memegang platform &mdash; mesin klinis, infrastruktur WhatsApp, sinkron offline, keamanan, rekayasa berkelanjutan. <strong>Bersama-sama kami mengajukan hibah dan ikut mendanai penerapan.</strong> Setiap mitra menyebut yang lain dalam pengajuan dana. Bukti terkumpul lintas wilayah; tidak ada yang berjalan sendiri.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== SLIDE 18: Q&A — HOW WE ARE FUELED ========== -->
+  <section class="slide" data-slide="18">
+    <div class="slide-num">18 — Q &amp; A · TWO</div>
+    <div class="qa-wrap">
+      <div class="qa-question">
+        <div class="qa-mark">Q</div>
+        <div class="qa-question-text">
+          <div class="qa-eyebrow" data-en>The question that comes next</div>
+          <div class="qa-eyebrow" data-id>Pertanyaan yang muncul berikutnya</div>
+          <h2 class="qa-text" data-en>If SahAIbat is gratis,<br><em>how is it fueled?</em></h2>
+          <h2 class="qa-text" data-id>Jika SahAIbat gratis,<br><em>bagaimana ia dibiayai?</em></h2>
+        </div>
+      </div>
+
+      <div class="qa-answer">
+        <div class="qa-mark qa-mark-a">A</div>
+        <div class="qa-answer-body">
+          <p class="qa-lead" data-en>We are a small social-startup ecosystem &mdash; lean by design, transparent by habit.</p>
+          <p class="qa-lead" data-id>Kami adalah ekosistem startup sosial yang kecil &mdash; ramping menurut desain, transparan menurut kebiasaan.</p>
+
+          <div class="fuel-grid">
+            <div class="fuel-card">
+              <div class="fuel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+              </div>
+              <h5 data-en>Tech infrastructure credits</h5>
+              <h5 data-id>Kredit infrastruktur teknologi</h5>
+              <p data-en>Cloud and AI compute is supported by programmes like AWS Activate, Anthropic for Good, and Google for Startups. The infrastructure cost &mdash; usually the largest line item &mdash; is largely subsidised by the platforms that built it.</p>
+              <p data-id>Komputasi cloud dan AI didukung oleh program seperti AWS Activate, Anthropic for Good, dan Google for Startups. Biaya infrastruktur &mdash; biasanya komponen terbesar &mdash; sebagian besar disubsidi oleh platform yang membangunnya.</p>
+            </div>
+            <div class="fuel-card">
+              <div class="fuel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <h5 data-en>NGO co-applications</h5>
+              <h5 data-id>Pengajuan bersama dengan NGO</h5>
+              <p data-en>We are the technical partner on grants led by NGOs &mdash; USAID DIV, Gates Foundation, Grand Challenges Canada, Google.org, Wellcome. The NGO carries the field; we carry the platform; the funder funds both.</p>
+              <p data-id>Kami adalah mitra teknis pada hibah yang dipimpin NGO &mdash; USAID DIV, Gates Foundation, Grand Challenges Canada, Google.org, Wellcome. NGO membawa lapangan; kami membawa platform; pemberi dana mendanai keduanya.</p>
+            </div>
+            <div class="fuel-card">
+              <div class="fuel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+              </div>
+              <h5 data-en>Lean by design</h5>
+              <h5 data-id>Ramping menurut desain</h5>
+              <p data-en>The architecture is deliberately cheap to run &mdash; ~ $260/month at 10,000 active kaders. The clinical engine uses zero AI calls. WhatsApp inbound is free under Meta&rsquo;s policy. The system is built to outlive any single grant cycle.</p>
+              <p data-id>Arsitekturnya sengaja dibuat murah dijalankan &mdash; ~ $260/bulan untuk 10.000 kader aktif. Mesin klinis nol panggilan AI. Pesan masuk WhatsApp gratis menurut kebijakan Meta. Sistem dibangun agar bertahan lebih lama dari siklus hibah mana pun.</p>
+            </div>
+            <div class="fuel-card">
+              <div class="fuel-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
+              <h5 data-en>Patient timelines, not exit timelines</h5>
+              <h5 data-id>Garis waktu sabar, bukan garis waktu keluar</h5>
+              <p data-en>We are not trying to become a massive company. There is no investor exit pressure. We move steadily and improve things, alongside the people doing the hardest work in primary care &mdash; for as long as they need us.</p>
+              <p data-id>Kami tidak berusaha menjadi perusahaan besar. Tidak ada tekanan exit dari investor. Kami bergerak dengan mantap dan memperbaiki hal-hal, bersama orang-orang yang melakukan pekerjaan tersulit dalam layanan primer &mdash; selama mereka membutuhkan kami.</p>
+            </div>
+          </div>
+
+          <div class="fuel-bottom-line">
+            <div class="fuel-bottom-mark"></div>
+            <div>
+              <p class="fuel-bottom-label" data-en>The bottom line for partners</p>
+              <p class="fuel-bottom-label" data-id>Intinya untuk mitra</p>
+              <p class="fuel-bottom-text" data-en>You will <strong>never</strong> receive an invoice from us. You will never see a per-kader fee, a usage charge, or a renewal price. We carry the platform cost; together we attract the grants that make scale possible.</p>
+              <p class="fuel-bottom-text" data-id>Anda <strong>tidak akan pernah</strong> menerima tagihan dari kami. Anda tidak akan pernah melihat biaya per kader, biaya pemakaian, atau harga perpanjangan. Kami menanggung biaya platform; bersama-sama kita menarik hibah yang memungkinkan skala.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 13: CTA ========== -->
+  <section class="slide" data-slide="19">
+    <div class="slide-num">19 — AN INVITATION</div>
+    <div class="cta">
+      <div class="cta-eyebrow" data-en>Healthcare must reach everyone &mdash; or it isn&rsquo;t healthcare</div>
+      <div class="cta-eyebrow" data-id>Layanan kesehatan harus menjangkau semua &mdash; jika tidak, bukan layanan kesehatan</div>
+
+      <div class="cta-headline" data-en>
+        Pilot with us. Use it.<br>
+        <span class="accent">Take the time you need.</span>
+      </div>
+      <div class="cta-headline" data-id>
+        Pilot bersama kami. Gunakan.<br>
+        <span class="accent">Ambil waktu yang Anda butuhkan.</span>
+      </div>
+
+      <div class="cta-sub" data-en>One kader or your full network. A week or a year. SahAIbat is gratis &mdash; today, tomorrow, and after every grant ends. We are serious about building last-mile healthcare, because healthcare that doesn&rsquo;t reach the last mile isn&rsquo;t healthcare at all.</div>
+      <div class="cta-sub" data-id>Satu kader atau seluruh jaringan Anda. Seminggu atau setahun. SahAIbat gratis &mdash; hari ini, besok, dan setelah setiap hibah berakhir. Kami serius membangun layanan kesehatan mil-terakhir, karena layanan yang tidak menjangkau mil terakhir bukanlah layanan kesehatan.</div>
+
+      <div class="cta-actions">
+        <button class="btn btn-primary" data-en onclick="goToSlide(20)">Start using SahAIbat &rarr;</button>
+        <button class="btn btn-primary" data-id onclick="goToSlide(20)">Mulai pakai SahAIbat &rarr;</button>
+        <button class="btn btn-ghost" data-en onclick="goToSlide(20)">Talk to the team</button>
+        <button class="btn btn-ghost" data-id onclick="goToSlide(20)">Bicara dengan tim</button>
+      </div>
+
+      <div class="cta-foot" data-en>No commitment. No contract. No fee. Ever.</div>
+      <div class="cta-foot" data-id>Tanpa komitmen. Tanpa kontrak. Tanpa biaya. Selamanya.</div>
+    </div>
+  </section>
+
+  <!-- ========== SLIDE 14: CONTACT ========== -->
+  <section class="slide" data-slide="20">
+    <div class="slide-num">20 — CONTACT</div>
+    <div class="contact-wrap">
+      <div>
+        <div class="closing-quote" data-en>
+          &ldquo;The dignity of every child<br>
+          in every village &mdash; <span class="em">that&rsquo;s the whole story.</span><br>
+          Everything else is logistics.&rdquo;
+        </div>
+        <div class="closing-quote" data-id>
+          &ldquo;Martabat setiap anak<br>
+          di setiap desa &mdash; <span class="em">itu seluruh ceritanya.</span><br>
+          Selebihnya hanya logistik.&rdquo;
+        </div>
+        <div class="closing-attr">SahAIbat · Built by Viantra · Toronto + Jakarta</div>
+      </div>
+
+      <div class="contact-card">
+        <div class="name">Sanjib</div>
+        <div class="role" data-en>Founder · SahAIbat</div>
+        <div class="role" data-id>Pendiri · SahAIbat</div>
+        <div class="contact-line"><span class="lbl">Email</span><span>sanjib@sahaibat.com</span></div>
+        <div class="contact-line"><span class="lbl">Phone</span><span>+1 647 609 2813</span></div>
+        <div class="contact-line"><span class="lbl">Web</span><span>sahaibat.com</span></div>
+        <div class="contact-line"><span class="lbl">Kader</span><span>kader.sahaibat.com</span></div>
+        <div class="contact-line"><span class="lbl">Office</span><span>Kensington Tower, Jakarta · Toronto</span></div>
+        <div class="contact-line"><span class="lbl">NIB</span><span>1202260248509</span></div>
+      </div>
+    </div>
+  </section>
+
 </div>
 
-<!-- NAVIGATION -->
-<div class="nav">
-  <button class="nav-btn" id="prevBtn">‹</button>
-  <div class="nav-dots" id="dots"></div>
-  <span class="nav-counter" id="counter">1 / 6</span>
-  <button class="nav-btn" id="nextBtn">›</button>
+<!-- BOTTOM NAVBAR -->
+<div class="navbar">
+  <div class="nav-pair">
+    <button class="nav-btn" id="prevBtn" aria-label="Previous">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="nav-btn" id="nextBtn" aria-label="Next">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+  <div class="dots" id="dots"></div>
+  <div class="nav-hint">&larr; &rarr; &nbsp;·&nbsp; <span data-en>arrow keys</span><span data-id>tombol panah</span></div>
 </div>
 
 <script>
-  const slides = document.querySelectorAll('.slide');
-  const total = slides.length;
-  let current = 0;
+  const TOTAL = 20;
+  let current = 1;
 
+  // Build dots
   const dotsContainer = document.getElementById('dots');
-  for (let i = 0; i < total; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
-    dot.addEventListener('click', () => goTo(i));
-    dotsContainer.appendChild(dot);
+  for (let i = 1; i <= TOTAL; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.dataset.idx = i;
+    d.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(d);
   }
 
-  function goTo(idx) {
-    if (idx < 0 || idx >= total) return;
-    slides[current].classList.remove('active');
-    current = idx;
-    slides[current].classList.add('active');
-    document.querySelectorAll('.nav-dot').forEach((d, i) => {
-      d.classList.toggle('active', i === current);
+  function updateProgress() {
+    document.getElementById('progressPill').textContent =
+      String(current).padStart(2, '0') + ' / ' + String(TOTAL).padStart(2, '0');
+    document.querySelectorAll('.dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current - 1);
     });
-    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
-    document.getElementById('prevBtn').disabled = current === 0;
-    document.getElementById('nextBtn').disabled = current === total - 1;
+    document.getElementById('prevBtn').disabled = current === 1;
+    document.getElementById('nextBtn').disabled = current === TOTAL;
   }
 
-  document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
-  document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+  function goToSlide(n) {
+    if (n < 1 || n > TOTAL) return;
+    document.querySelectorAll('.slide').forEach(s => {
+      s.classList.toggle('active', parseInt(s.dataset.slide) === n);
+      if (parseInt(s.dataset.slide) === n) s.scrollTop = 0;
+    });
+    current = n;
+    updateProgress();
+  }
 
+  document.getElementById('prevBtn').addEventListener('click', () => goToSlide(current - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goToSlide(current + 1));
+
+  // Keyboard
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
-    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
-    if (e.key === 'Home') goTo(0);
-    if (e.key === 'End') goTo(total - 1);
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goToSlide(current + 1); }
+    if (e.key === 'ArrowLeft') goToSlide(current - 1);
+    if (e.key === 'Home') goToSlide(1);
+    if (e.key === 'End') goToSlide(TOTAL);
+  });
+
+  // Language toggle
+  const langToggle = document.getElementById('langToggle');
+  langToggle.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.dataset.langBtn;
+      document.body.dataset.lang = lang;
+      langToggle.classList.toggle('id', lang === 'id');
+      langToggle.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', b.dataset.langBtn === lang);
+      });
+      document.documentElement.lang = lang === 'id' ? 'id' : 'en';
+    });
   });
 
   // Touch swipe
-  let touchStart = 0;
-  document.addEventListener('touchstart', (e) => { touchStart = e.touches[0].clientX; });
-  document.addEventListener('touchend', (e) => {
-    const diff = touchStart - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) goTo(current + (diff > 0 ? 1 : -1));
+  let touchStartX = 0;
+  document.getElementById('stage').addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById('stage').addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) goToSlide(current + (dx < 0 ? 1 : -1));
+  });
+
+  updateProgress();
+
+  // =========================================================
+  // INTERACTIVE DEMOS
+  // =========================================================
+
+  // ---------- Demo tab switching ----------
+  document.querySelectorAll('.demo-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      document.querySelectorAll('.demo-tab').forEach(t => t.classList.toggle('active', t === tab));
+      document.querySelectorAll('.demo-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.panel === target);
+      });
+    });
+  });
+
+  // ---------- WhatsApp Demo ----------
+  const waSteps = [
+    {
+      msg: { type: 'out', html: 'Selamat pagi, mau lapor anak Putri.' },
+      narr_en: 'Bu Sari, a kader, opens her usual WhatsApp and sends a message. <span class="em">No app to install.</span>',
+      narr_id: 'Bu Sari, seorang kader, membuka WhatsApp seperti biasa. <span class="em">Tidak perlu pasang aplikasi.</span>'
+    },
+    {
+      msg: { type: 'in', html: 'Halo Bu Sari. Boleh kirim ringkasan: <b>Nama, umur, jenis kelamin, BB, TB, LiLA</b>?' },
+      narr_en: 'SahAIbat answers in seconds, in plain Bahasa, asking only what it needs.',
+      narr_id: 'SahAIbat menjawab dalam hitungan detik, dalam Bahasa sederhana, hanya menanyakan yang perlu.'
+    },
+    {
+      msg: { type: 'out', html: 'Putri, 22 bulan, P. BB 8.2 kg, TB 76 cm, LiLA 11.5 cm.' },
+      narr_en: 'One line. The kader writes the way she already writes in her notebook.',
+      narr_id: 'Satu baris. Kader menulis seperti yang biasa ia tulis di buku catatannya.'
+    },
+    {
+      msg: { type: 'in', html: '<b>RINGKASAN</b><br>Risiko: <span class="urgent">TINGGI &mdash; SAM</span><br>LiLA &lt; 11.5 cm + WHZ &lt; -3 SD<br><div class="sub">Buku KIA &middot; WHO 2006</div>' },
+      narr_en: 'The deterministic engine flags severe acute malnutrition. <span class="em">Z-score from monthly WHO 2006 tables.</span>',
+      narr_id: 'Mesin deterministik menandai malnutrisi akut parah. <span class="em">Z-score dari tabel WHO 2006 bulanan.</span>'
+    },
+    {
+      msg: { type: 'in', html: '<b>LAKUKAN SEKARANG</b><br><span class="urgent">SEGERA ke Puskesmas. Jangan tunda.</span><br>Bawa Buku KIA + foto pengukuran.<br><br><b>EDUKASI IBU</b><br>Tetap menyusui. ASI + MP-ASI lokal.' },
+      narr_en: 'A plan in plain words. The kader knows exactly what to do, and so does the mother.',
+      narr_id: 'Rencana dalam kata-kata sederhana. Kader tahu pasti yang harus dilakukan, dan ibu juga.'
+    }
+  ];
+
+  // ---------- PWA Demo ----------
+  const pwaSteps = [
+    {
+      banner: { state: 'connected', en: 'Connected · Auto-sync on', id: 'Terhubung · Sinkron otomatis aktif' },
+      signal: 4,
+      screen: 'empty',
+      narr_en: 'Bu Sari starts a Posyandu day. Signal is good, app is ready.',
+      narr_id: 'Bu Sari memulai hari Posyandu. Sinyal baik, aplikasi siap.'
+    },
+    {
+      banner: { state: 'offline', en: "Offline · You're in the field", id: 'Offline · Anda di lapangan' },
+      signal: 0,
+      screen: 'empty',
+      narr_en: 'She climbs into the village. <span class="em">Signal is gone.</span> The app keeps working.',
+      narr_id: 'Ia naik ke desa. <span class="em">Sinyal hilang.</span> Aplikasi tetap bekerja.'
+    },
+    {
+      banner: { state: 'offline', en: 'Offline · Data saved on device', id: 'Offline · Data tersimpan di perangkat' },
+      signal: 0,
+      screen: 'one_card_offline',
+      narr_en: 'First child triaged. Full WHO z-score engine, <span class="em">running on the phone</span>. Saved locally.',
+      narr_id: 'Anak pertama ditriase. Mesin z-score WHO penuh, <span class="em">berjalan di ponsel</span>. Tersimpan lokal.'
+    },
+    {
+      banner: { state: 'queued', en: 'Queued · 5 records waiting', id: 'Antrian · 5 catatan menunggu' },
+      signal: 0,
+      screen: 'five_cards_queued',
+      narr_en: 'Five children later, all queued. <span class="em">Nothing lost.</span> The shelf does not eat the data anymore.',
+      narr_id: 'Lima anak berikutnya, semua diantrikan. <span class="em">Tidak ada yang hilang.</span> Rak tidak lagi menelan data.'
+    },
+    {
+      banner: { state: 'connected', en: 'Signal returning · Syncing', id: 'Sinyal kembali · Sinkron berjalan' },
+      signal: 2,
+      screen: 'five_cards_syncing',
+      narr_en: 'A bar of signal returns. Background sync starts on its own. Auto, on Android.',
+      narr_id: 'Satu bar sinyal kembali. Sinkronisasi latar belakang mulai sendiri. Otomatis di Android.'
+    },
+    {
+      banner: { state: 'synced', en: 'All synced · Records live in cloud', id: 'Semua tersinkron · Catatan ada di cloud' },
+      signal: 4,
+      screen: 'five_cards_synced',
+      narr_en: 'Done. Five Posyandu records, in Jakarta, visible to the NGO dashboard. <span class="em">She never opened a laptop.</span>',
+      narr_id: 'Selesai. Lima catatan Posyandu, di Jakarta, terlihat di dasbor NGO. <span class="em">Ia tidak pernah buka laptop.</span>'
+    }
+  ];
+
+  // ---------- Kasih Demo ----------
+  const kasihSteps = [
+    {
+      msg: { type: 'out', html: 'Halo, anak saya panas dari kemarin. Umur 3 tahun.' },
+      narr_en: 'A worried mother messages Kasih. <span class="em">Sunday evening, no Posyandu open.</span>',
+      narr_id: 'Seorang ibu yang khawatir mengirim pesan ke Kasih. <span class="em">Minggu malam, Posyandu tutup.</span>'
+    },
+    {
+      msg: { type: 'in', html: 'Halo Bu, semoga si kecil cepat pulih. Boleh saya tanya beberapa hal?<br><br>Sudah berapa lama panasnya? Apakah ada batuk, muntah, atau diare?' },
+      narr_en: 'Kasih answers warmly, in short sentences a tired parent can read.',
+      narr_id: 'Kasih menjawab dengan hangat, dalam kalimat pendek yang bisa dibaca orang tua yang lelah.'
+    },
+    {
+      msg: { type: 'out', html: 'Sudah 2 hari. Tidak batuk. Tidak muntah. Tapi anak lemas, susah minum.' },
+      narr_en: 'The mother adds details. Kasih is listening for danger signs.',
+      narr_id: 'Ibu menambah keterangan. Kasih menyimak tanda bahaya.'
+    },
+    {
+      msg: { type: 'in', html: '<b>Tolong perhatikan baik-baik.</b><br>"Susah minum" pada anak demam adalah <span class="urgent">tanda bahaya</span>.<br><br>Boleh dicoba: berikan ASI atau air sedikit-sedikit, jaga tetap sejuk.<br><br>Jangan beri obat resep tanpa anjuran tenaga kesehatan.' },
+      narr_en: 'Kasih recognises a danger sign. <span class="em">She gives only OTC, dignified guidance.</span> No prescription drugs, ever.',
+      narr_id: 'Kasih mengenali tanda bahaya. <span class="em">Ia hanya memberi panduan OTC yang bermartabat.</span> Tidak pernah obat resep.'
+    },
+    {
+      msg: { type: 'in', html: '<b>Sebaiknya hubungi kader di desa Ibu hari ini juga.</b><br><br>Kader Ibu: <b>Bu Sari</b>, +62 812-xxxx-1234<br><br>Saya juga sudah memberi tahu Bu Sari kondisinya, supaya beliau bisa kunjungi.' },
+      narr_en: 'Kasih hands the family back to the kader. <span class="em">She never replaces a clinician.</span> The kader gets a quiet signal &mdash; no privacy violation, just the alert.',
+      narr_id: 'Kasih mengembalikan keluarga ke kader. <span class="em">Ia tidak pernah menggantikan klinisi.</span> Kader mendapat sinyal halus &mdash; tanpa melanggar privasi, hanya pemberitahuan.'
+    }
+  ];
+
+  // ---------- Demo state and runners ----------
+  const demoState = { wa: 0, pwa: 0, kasih: 0 };
+
+  function getLang() {
+    return document.body.dataset.lang || 'en';
+  }
+
+  function renderWA(step) {
+    const body = document.getElementById('waBody');
+    body.innerHTML = '';
+    for (let i = 0; i <= step && i < waSteps.length; i++) {
+      const m = waSteps[i].msg;
+      const div = document.createElement('div');
+      div.className = 'msg ' + m.type + (i === step ? ' appearing' : '');
+      div.innerHTML = m.html;
+      body.appendChild(div);
+    }
+    body.scrollTop = body.scrollHeight;
+
+    document.getElementById('waStep').textContent = step + 1;
+    document.getElementById('waTotal').textContent = waSteps.length;
+
+    const narr = document.getElementById('waNarr');
+    const lang = getLang();
+    narr.innerHTML = waSteps[step]['narr_' + lang];
+
+    const isLast = step >= waSteps.length - 1;
+    document.getElementById('waNext').disabled = isLast;
+    document.getElementById('waNextId').disabled = isLast;
+  }
+
+  function renderPWA(step) {
+    const data = pwaSteps[step];
+
+    // Banner
+    const banner = document.getElementById('pwaBanner');
+    banner.classList.remove('offline', 'queued', 'synced');
+    if (data.banner.state === 'offline') banner.classList.add('offline');
+    if (data.banner.state === 'queued') banner.classList.add('queued');
+    if (data.banner.state === 'synced') banner.classList.add('synced');
+    banner.querySelector('[data-en]').textContent = data.banner.en;
+    banner.querySelector('[data-id]').textContent = data.banner.id;
+
+    // Signal bars
+    const sig = document.getElementById('pwaSignal');
+    sig.classList.toggle('offline', data.signal === 0);
+
+    // Screen
+    const screen = document.getElementById('pwaScreen');
+    screen.innerHTML = renderPWAScreen(data.screen);
+
+    document.getElementById('pwaStep').textContent = step + 1;
+    document.getElementById('pwaTotal').textContent = pwaSteps.length;
+    const narr = document.getElementById('pwaNarr');
+    const lang = getLang();
+    narr.innerHTML = data['narr_' + lang];
+
+    const isLast = step >= pwaSteps.length - 1;
+    document.getElementById('pwaNext').disabled = isLast;
+    document.getElementById('pwaNextId').disabled = isLast;
+  }
+
+  function renderPWAScreen(kind) {
+    const cards = [
+      { name: 'Putri, 22m', who: 'BB 8.2 · TB 76 · LiLA 11.5', flag: 'SAM', danger: true },
+      { name: 'Andi, 14m',  who: 'BB 7.4 · TB 72 · LiLA 12.1', flag: 'MAM', danger: false },
+      { name: 'Lia, 8m',    who: 'BB 6.8 · TB 64 · LiLA 13.0', flag: 'OK',  danger: false },
+      { name: 'Yusuf, 30m', who: 'BB 11.2 · TB 84 · LiLA 13.5', flag: 'OK', danger: false },
+      { name: 'Mira, 18m',  who: 'BB 8.9 · TB 78 · LiLA 12.8', flag: 'OK', danger: false }
+    ];
+
+    if (kind === 'empty') {
+      return '<div class="pwa-empty">Posyandu hari ini<br>Belum ada catatan.</div>';
+    }
+
+    let count, tag, tagText;
+    if (kind === 'one_card_offline')   { count = 1; tag = 'offline'; tagText = 'Offline · saved'; }
+    if (kind === 'five_cards_queued')  { count = 5; tag = 'queued';  tagText = 'Queued'; }
+    if (kind === 'five_cards_syncing') { count = 5; tag = 'queued';  tagText = 'Syncing...'; }
+    if (kind === 'five_cards_synced')  { count = 5; tag = 'synced';  tagText = 'Synced'; }
+
+    let html = '';
+    for (let i = 0; i < count; i++) {
+      const c = cards[i];
+      const cardClass = c.danger ? 'pwa-card danger' : (c.flag === 'OK' ? 'pwa-card success' : 'pwa-card');
+      html += '<div class="' + cardClass + ' appearing">' +
+        '<div class="pwa-card-title">' + c.name + '</div>' +
+        '<div class="pwa-card-meta">' + c.who + '</div>' +
+        '<div class="pwa-card-body">Flag: <b>' + c.flag + '</b></div>' +
+        '<span class="pwa-card-tag ' + tag + '">' + tagText + '</span>' +
+        '</div>';
+    }
+    return html;
+  }
+
+  function renderKasih(step) {
+    const body = document.getElementById('kasihBody');
+    body.innerHTML = '';
+    for (let i = 0; i <= step && i < kasihSteps.length; i++) {
+      const m = kasihSteps[i].msg;
+      const div = document.createElement('div');
+      div.className = 'msg ' + m.type + (i === step ? ' appearing' : '');
+      div.innerHTML = m.html;
+      body.appendChild(div);
+    }
+    body.scrollTop = body.scrollHeight;
+
+    document.getElementById('kasihStep').textContent = step + 1;
+    document.getElementById('kasihTotal').textContent = kasihSteps.length;
+    const narr = document.getElementById('kasihNarr');
+    const lang = getLang();
+    narr.innerHTML = kasihSteps[step]['narr_' + lang];
+
+    const isLast = step >= kasihSteps.length - 1;
+    document.getElementById('kasihNext').disabled = isLast;
+    document.getElementById('kasihNextId').disabled = isLast;
+  }
+
+  // ---------- Wire up demo controls ----------
+  function wireDemo(prefix, render, total) {
+    const advance = () => {
+      if (demoState[prefix] < total - 1) {
+        demoState[prefix]++;
+        render(demoState[prefix]);
+      }
+    };
+    const reset = () => {
+      demoState[prefix] = 0;
+      render(0);
+    };
+    document.getElementById(prefix + 'Next').addEventListener('click', advance);
+    document.getElementById(prefix + 'NextId').addEventListener('click', advance);
+    document.getElementById(prefix + 'Reset').addEventListener('click', reset);
+    document.getElementById(prefix + 'ResetId').addEventListener('click', reset);
+  }
+
+  wireDemo('wa', renderWA, waSteps.length);
+  wireDemo('pwa', renderPWA, pwaSteps.length);
+  wireDemo('kasih', renderKasih, kasihSteps.length);
+
+  // Initial render of all three
+  renderWA(0);
+  renderPWA(0);
+  renderKasih(0);
+
+  // Re-render narration on language change so the current step's prose flips
+  document.getElementById('langToggle').addEventListener('click', () => {
+    setTimeout(() => {
+      renderWA(demoState.wa);
+      renderPWA(demoState.pwa);
+      renderKasih(demoState.kasih);
+    }, 50);
   });
 </script>
 
